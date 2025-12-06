@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Connection Screen -->
+    <!-- App Bar -->
+    <string name="flowirc_connection">Conexión LatinsIRC</string>
+    <string name="add_server">Añadir servidor</string>
+    <string name="add_server_desc">Añadir nuevo servidor</string>
+
+    <!-- Server Selection -->
+    <string name="select_server">Seleccionar servidor</string>
+    <string name="server">Servidor</string>
+    <string name="select_irc_network">Seleccionar red IRC</string>
+    <string name="search_servers">Buscar servidores…</string>
+    <string name="no_servers_found">No se encontraron servidores</string>
+    <string name="server_desc">Icono de servidor</string>
+    <string name="dropdown_desc">Desplegar opciones</string>
+
+    <!-- Connection Form -->
+    <string name="nickname">Nickname</string>
+    <string name="nickname_hint">Introduce tu Nick</string>
+    <string name="nickname_desc">Icono de usuario</string>
+    <string name="clear_nickname_desc">Borrar apodo</string>
+    <string name="password">Contraseña</string>
+    <string name="password_optional">Contraseña (Opcional)</string>
+    <string name="password_hint">Introduce contraseña si es requerida</string>
+    <string name="password_desc">Icono de candado</string>
+    <string name="show_password_desc">Mostrar contraseña</string>
+    <string name="hide_password_desc">Ocultar contraseña</string>
+
+    <!-- Privacy Policy -->
+    <string name="accept_privacy">Acepto la </string>
+    <string name="privacy_policy">Política de Privacidad</string>
+
+    <!-- Connection Button -->
+    <string name="connect_button">Chatear</string>
+    <string name="connecting">Conectando…</string>
+
+    <!-- Server Actions -->
+    <string name="edit">Editar</string>
+    <string name="edit_server_desc">Editar servidor</string>
+    <string name="delete">Eliminar</string>
+    <string name="delete_server_desc">Eliminar servidor</string>
+
+    <!-- Dialogs -->
+    <string name="connection_error">Error de conexión</string>
+    <string name="reject">Rechazar</string>
+    <string name="accept">Aceptar</string>
+    <string name="disconnecting">Desconectando</string>
+    <string name="clear_search_desc">Limpiar búsqueda</string>
+
+    <!-- Privacy Policy Dialog -->
+    <string name="privacy_policy_title">Política de Privacidad</string>
+
+    <!-- Connection States -->
+    <string name="connected">Conectado</string>
+    <string name="disconnected">Desconectado</string>
+
+    <!-- Chat Screen -->
+    <string name="chat_title">Chat Latins</string>
+    <string name="message_hint">Mensaje</string>
+    <string name="send_button">Enviar</string>
+    <string name="connected_status">Conectado</string>
+    <string name="disconnected_status">Desconectado</string>
+
+    <!-- Chat Screen - Disconnect Dialog -->
+    <string name="disconnect_dialog_title">Confirmar desconexión</string>
+    <string name="disconnect_dialog_message">¿Estás seguro que deseas desconectarte del servidor?</string>
+    <string name="disconnect_button">Desconectar</string>
+    <string name="cancel_button">Cancelar</string>
+
+    <!-- Chat Screen - Premium Dialog -->
+    <string name="premium_dialog_title">Funcionalidad Premium</string>
+    <string name="premium_dialog_message">Para acceder a esta función necesitas registrarte. ¿Deseas crear una cuenta?</string>
+    <string name="register_button">Registrarme</string>
+    <string name="watch_ad_button">Ver Anuncio</string>
+    <string name="premium_feature_description">Esta función requiere acceso premium. Puedes registrarte, iniciar sesión o ver un video para acceso temporal (1 hora)</string>
+    <string name="watch_video">Ver video</string>
+    <string name="premium_access_granted">¡Felicidades! Tienes acceso premium por 1 hora</string>
+
+    <!-- Chat Screen - User List Dialog -->
+    <string name="user_list_dialog_title">Ver lista de usuarios</string>
+    <string name="user_list_dialog_message">Puedes ver la lista de usuarios viendo un breve anuncio</string>
+    <string name="users">Usuarios</string>
+
+    <!-- Lista de sugerencias de usuarios -->
+    <string name="user_list_title">Usuarios</string>
+    <string name="user_no_matches">No hay coincidencias</string>
+
+
+    <!-- Chat Screen - Message Context Menu -->
+    <string name="menu_mention">Mencionar</string>
+    <string name="menu_open_private">chat privado</string>
+    <string name="menu_block_user">Bloquear usuario</string>
+    <string name="menu_unblock_user">Desbloquear usuario</string>
+    <string name="menu_ignore_user">Ignorar usuario (global)</string>
+    <string name="menu_unignore_user">Dejar de ignorar (global)</string>
+    <string name="menu_ignore_channel">Ignorar en esta sala</string>
+    <string name="menu_unignore_channel">Dejar de ignorar en sala</string>
+    <string name="menu_report_user">Denunciar usuario/contenido</string>
+    <string name="menu_copy_message">Copiar mensaje</string>
+    <string name="ignored_globally">Ignorado globalmente</string>
+    <string name="blocked">Bloqueado</string>
+    <string name="ignored_in_channel">Ignorado en canal</string>
+    <string name="see_profile">Ver Perfil</string>
+    <string name="ignore_in_channel">Ignorar en %1$s</string>
+    <string name="unignore_in_channel">Dejar de ignorar en %1$s</string>
+    <string name="premium">Premium</string>
+
+    <!-- Chat Screen - Report Dialog -->
+    <string name="report_dialog_title">Denunciar usuario</string>
+    <string name="report_dialog_message">Estás denunciando al usuario: %1$s\nPor favor, indica el motivo de la denuncia:</string>
+    <string name="report_email_warning">Se abrirá tu cliente de correo para enviar la denuncia</string>
+    <string name="report_hint">Escribe el motivo aquí\u2026</string>
+    <string name="report_button">Denunciar</string>
+    <string name="report_success">Tu denuncia ha sido enviada</string>
+
+    <!-- Chat Screen - Message Formatting -->
+    <string name="text_formatting_title">Formatos de texto</string>
+    <string name="format_bold">Negrita</string>
+    <string name="format_italic">Cursiva</string>
+    <string name="format_underline">Subrayado</string>
+    <string name="format_strikethrough">Tachado</string>
+    <string name="format_color">Color de texto</string>
+    <string name="format_bg_color">Color de fondo</string>
+    <string name="format_reset">Restablecer formato</string>
+    <string name="no_background_color">sin fondo</string>
+    <string name="format_clear_all">Limpiar todo</string>
+    <string name="format_sample_text">Texto de ejemplo</string>
+
+    <!--Chat Screen -  Status Messages -->
+    <string name="status_connected">Conectado al servidor</string>
+    <string name="status_disconnected">Desconectado del servidor</string>
+    <string name="status_joining">Uniéndose al canal %1$s</string>
+    <string name="status_parting">Abandonando el canal %1$s</string>
+
+    <!-- Chat Screen Notifications -->
+    <string name="notification_channel_name">Mensajes</string>
+    <string name="notification_title">Nuevo mensaje en %1$s</string>
+    <string name="notification_content">De %1$s: %2$s</string>
+    <string name="unread_message_singular">%1$d mensaje nuevo</string>
+    <string name="unread_message_plural">%1$d mensajes nuevos</string>
+
+    <!-- Chat Screen User Interface -->
+    <string name="action_settings">Configuración</string>
+    <string name="action_profile">Perfil</string>
+    <string name="action_community">Comunidad</string>
+    <string name="action_ads">Anuncios</string>
+    <string name="action_colors">Colores IRC</string>
+    <string name="action_disconnect">Desconectar</string>
+    <string name="action_login">Iniciar Sesión</string>
+    <string name="action_register">Registrarme</string>
+
+    <!-- Chat Screen Errors -->
+    <string name="error_network">Error de red</string>
+    <string name="error_invalid_command">Comando inválido</string>
+    <string name="error_nick_in_use">El apodo ya está en uso</string>
+    <string name="error_channel_full">El canal está lleno</string>
+    <string name="error_invite_only">El canal es solo por invitación</string>
+    <string name="error_banned">Estás baneado de este canal</string>
+
+    <!-- Chat Screen Success Messages -->
+    <string name="success_message_sent">Mensaje enviado</string>
+    <string name="success_user_blocked">Usuario bloqueado</string>
+    <string name="success_user_unblocked">Usuario desbloqueado</string>
+
+    <!-- Chat Screen Copy Messages -->
+    <string name="message_copied">Mensaje copiado</string>
+    <string name="link_copied">Enlace copiado</string>
+    <!-- Portapapeles y mensajes del sistema -->
+    <string name="clipboard_copy_label">Mensaje</string>
+    <string name="clipboard_success">Copiado al portapapeles</string>
+
+
+    <!-- Chat Screen Time Formats -->
+    <string name="time_format">HH:mm</string>
+    <string name="date_format">dd/MM/yyyy</string>
+
+    <!-- Chat Screen URL Handling -->
+    <string name="url_open_error">No se pudo abrir el enlace</string>
+    <string name="url_open_not_link">Este texto no es un enlace</string>
+    <string name="external_link">Enlace externo</string>
+    <string name="url_preview_description">Vista previa de enlace: %1$s</string>
+
+    <!-- ColorSettingsScreen  -->
+    <!-- Títulos -->
+    <string name="color_settings_title">Configuración de colores</string>
+    <string name="color_options_title">Opciones de colores</string>
+    <string name="plain_text_mode_title">Modo texto plano</string>
+    <string name="default_color_title">Color por defecto</string>
+    <string name="background_color_title">Color de fondo</string>
+    <string name="combined_preview_title">Vista previa combinada</string>
+    <string name="format_reset_title">Reseteo de formatos</string>
+    <string name="formatting_guide_title">Guía de códigos de formato</string>
+
+    <!-- Descripciones -->
+    <string name="show_colors_in_messages">Mostrar colores en mensajes</string>
+    <string name="color_setting_description">Al activar los colores, se mostrarán los formatos y colores utilizados por otros usuarios en el chat IRC.</string>
+    <string name="remove_formatting_codes">Eliminar códigos de formato automáticamente</string>
+    <string name="remove_formatting_description">Al activar esta opción, todos los códigos de color y formato serán eliminados al escribir</string>
+    <string name="select_default_color">Selecciona el color que se usará por defecto en tus mensajes:</string>
+    <string name="selected_color">Color seleccionado: %1$d</string>
+    <string name="select_background_color">Selecciona el color de fondo para el campo de chat:</string>
+    <string name="selected_background_color">Color de fondo seleccionado: %1$s</string>
+    <string name="combined_preview_description">Así se verá tu mensaje con el color por defecto y el fondo seleccionado:</string>
+    <string name="remove_all_formats">Elimina todos los formatos y colores de tus mensajes:</string>
+    <string name="formatting_codes_usage">Los siguientes códigos pueden usarse para dar formato a tus mensajes:</string>
+    <string name="available_color_codes">Códigos de colores disponibles:</string>
+    <string name="example_text_with_format">Ejemplo de texto con formato:</string>
+    <string name="example_message">Este es un mensaje de ejemplo</string>
+
+
+    <!-- Botones -->
+    <string name="reset">Restablecer</string>
+    <string name="remove_formats">Quitar formatos</string>
+    <string name="restore_example">Restaurar ejemplo</string>
+
+    <!-- Ejemplos -->
+    <string name="formatted_text_example">Texto original (con formato):</string>
+    <string name="plain_text_result">Resultado después de quitar formatos:</string>
+    <string name="plain_text_output">Texto plano resultante:</string>
+    <string name="converted_to_plain_text">Convertido a texto plano: &quot;%1$s&quot;</string>
+
+
+    <!-- Otros -->
+    <string name="sample_text_part1">Este es un </string>
+    <string name="sample_text_bold">mensaje de ejemplo</string>
+    <string name="sample_text_part2"> con </string>
+    <string name="sample_text_colored">colores</string>
+    <string name="sample_text_part3"> y </string>
+    <string name="sample_text_colored_bg">formatos</string>
+
+    <!-- AddServerScreen -->
+    <string name="add_custom_server">Añadir Servidor Personalizado</string>
+    <string name="back">Atrás</string>
+    <string name="server_name">Nombre del servidor</string>
+    <string name="server_url">URL del servidor</string>
+    <string name="port">Puerto</string>
+    <string name="use_ssl">Usar SSL</string>
+    <string name="real_name">Nombre real</string>
+    <string name="auto_join_channels">Canales para unirse automáticamente</string>
+    <string name="channel_example">#flowirc, #canal2</string>
+    <string name="save_server">Guardar servidor</string>
+    <string name="ad_loading">El anuncio se está cargando… El guardado puede retrasarse</string>
+    <string name="error">Error</string>
+    <string name="ok">Aceptar</string>
+    <string name="ad_not_ready">Anuncio no disponible</string>
+    <string name="ad_not_ready_message">El anuncio recompensado no está listo todavía. Por favor, inténtalo de nuevo en un momento.</string>
+
+    <!-- Community Screen      -->
+    <string name="Community">Comunidad Global </string>
+    <string name="search_placeholder">Buscar por nombre o país…</string>
+    <string name="search_icon_desc">Buscar</string>
+    <string name="no_profiles_found">No se encontraron perfiles</string>
+    <string name="no_matching_profiles">No hay perfiles que coincidan con tu búsqueda</string>
+    <string name="try_refreshing">Intenta actualizar la página</string>
+    <string name="try_different_term">Prueba con otro término de búsqueda</string>
+    <string name="refresh_button">Actualizar</string>
+    <string name="clear_search_button">Limpiar búsqueda</string>
+    <string name="loading_profiles">Cargando perfiles…</string>
+    <string name="person_icon_desc">Icono de perfil</string>
+
+    <!-- Login Screen -->
+    <string name="welcome_back">Bienvenido de vuelta</string>
+    <string name="email">Correo electrónico</string>
+    <string name="forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="sign_in">Iniciar sesión</string>
+    <string name="empty_fields">Por favor completa todos los campos</string>
+    <string name="no_account">¿No tienes cuenta? Regístrate</string>
+    <string name="sign_up">Registrarse</string>
+    <string name="loading">Cargando…</string>
+
+    <!-- Profile Screen -->
+    <string name="edit_profile">Editar Perfil</string>
+    <string name="profile_picture">Foto de perfil</string>
+    <string name="change_picture">Cambiar foto</string>
+    <string name="name">Nickname</string>
+    <string name="age">Edad</string>
+    <string name="country">País</string>
+    <string name="preferred_server">Servidor preferido</string>
+    <string name="save_changes">Guardar cambios</string>
+    <string name="sign_out">Cerrar sesión</string>
+    <string name="delete_account">Eliminar cuenta</string>
+    <string name="delete_account_title">Eliminar cuenta</string>
+    <string name="delete_account_message">¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.</string>
+    <string name="cancel">Cancelar</string>
+    <string name="loading_profile">Cargando perfil…</string>
+
+    <!-- Registration Screen -->
+    <string name="register_title">Registro</string>
+    <string name="name_error">El nickname \'%1$s\' ya está en uso. Por favor, elige otro.</string>
+    <string name="check_availability">Verificar disponibilidad del Nick</string>
+    <string name="nick_available">¡Nick disponible!</string>
+    <string name="enter_nick_to_check">Por favor, ingresa un Nick para verificar</string>
+    <string name="confirm_password">Confirmar Contraseña</string>
+    <string name="register_button_user">Registrarse</string>
+    <string name="processing">Procesando</string>
+    <string name="registering_user">Registrando usuario…</string>
+    <string name="checking_nick">Verificando disponibilidad del Nickname…</string>
+    <string name="required_fields">Por favor completa todos los campos requeridos</string>
+    <string name="password_mismatch">Las contraseñas no coinciden</string>
+    <string name="already_have_account">¿Ya tienes una cuenta? Inicia sesión aquí</string>
+
+    <!-- Reset Password Screen -->
+    <string name="reset_password_title">Restablecer contraseña</string>
+    <string name="reset_password_instructions">Ingresa tu dirección de correo electrónico y te enviaremos un enlace para restablecer tu contraseña.</string>
+    <string name="email_hint">Correo electrónico</string>
+    <string name="send_reset_link">Enviar enlace de restablecimiento</string>
+    <string name="back_to_sign_in">Volver al inicio de sesión</string>
+    <string name="reset_email_sent">Correo de restablecimiento enviado. Por favor revisa tu bandeja de entrada.</string>
+    <string name="enter_email_message">Por favor ingresa tu correo electrónico</string>
+
+    <!-- User Profile Screen -->
+    <string name="user_profile_title">Perfil de Usuario</string>
+    <string name="profile_picture_desc">Foto de perfil de %1$s</string>
+    <string name="member_since">Miembro desde</string>
+    <string name="last_updated">Última actualización</string>
+    <string name="user_not_found">Usuario no encontrado</string>
+    <string name="chat_recently_closed" translatable="false">Este chat fue recientemente cerrado. Selecciona otro usuario. </string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Configuración del chat</string>
+    <string name="back_desc">Volver</string>
+    <string name="events_section">Visualización de Eventos</string>
+    <string name="show_joins">Mostrar entradas al chat</string>
+    <string name="show_joins_desc">Mostrar cuando los usuarios se conectan al servidor</string>
+    <string name="show_quits">Mostrar desconexiones</string>
+    <string name="show_quits_desc">Mostrar cuando los usuarios se desconectan del servidor</string>
+    <string name="show_parts">Mostrar salidas de canal</string>
+    <string name="show_parts_desc">Mostrar cuando los usuarios salen de un canal</string>
+    <string name="show_bans">Mostrar baneos</string>
+    <string name="show_bans_desc">Mostrar cuando un usuario es baneado</string>
+    <string name="appearance_section">Apariencia</string>
+    <string name="font_size">Tamaño de letra</string>
+    <string name="font_size_unit">%dsp</string>
+    <string name="block_pms">Bloquear mensajes privados</string>
+    <string name="block_pms_desc">Bloquea todos los mensajes privados</string>
+    <string name="blocked_users_section">Usuarios bloqueados</string>
+    <string name="global_ignored_section">Usuarios ignorados globalmente</string>
+    <string name="channel_ignored_section">Usuarios ignorados en #%1$s</string>
+    <string name="all_blocked_section">Todos los bloqueados e ignorados</string>
+    <string name="unblock_user_desc">Desbloquear usuario</string>
+
+    <!-- Channels Screen -->
+    <string name="available_channels">Canales disponibles</string>
+    <string name="refresh_channels">Actualizar lista de canales</string>
+    <string name="loading_channels">Cargando canales…</string>
+    <string name="search_channels">Buscar canales</string>
+    <string name="search">Buscar</string>
+    <string name="sort_by_users">Ordenar por usuarios</string>
+    <string name="no_channels_found">No se encontraron canales</string>
+    <string name="users_desc">Número de usuarios</string>
+
+    <!-- Connection Service -->
+    <string name="connection_channel_id">connection_status</string>
+    <string name="connection_channel_name">Estado de Conexión</string>
+    <string name="connection_channel_description">Mantiene activa la sincronización de mensajes IRC en tiempo real</string>
+
+    <string name="notification_title_connection">LatinsIRC - Sincronización</string>
+    <string name="notification_content_connection">Sincronizando mensajes IRC en tiempo real. Esta tarea mantiene activa tu conexión y recibe actualizaciones de canales y usuarios en segundo plano.</string>
+    <string name="notification_stop_action">Detener sincronización</string>
+
+    <string name="state_connecting">Conectando al servidor…</string>
+    <string name="state_connected">Conectado y sincronizando</string>
+    <string name="state_disconnecting">Desconectando…</string>
+    <string name="state_disconnected">Desconectado</string>
+    <string name="state_error">Error de conexión</string>
+    <string name="state_unknown">Estado desconocido</string>
+
+    <string name="sync_active">✓ Sincronización de datos activa: mensajes y usuarios actualizándose en tiempo real</string>
+    <string name="sync_starting">⟳ Iniciando sincronización de datos con el servidor IRC…</string>
+    <string name="sync_disconnected">✗ Sincronización de datos detenida. Conecte para recibir actualizaciones</string>
+    <string name="sync_error">⚠ Error en la sincronización de datos. Verifique su conexión a internet</string>
+    <string name="sync_default">⟳ Estado de sincronización: %s</string>
+
+    <string name="title_active">✓ Sincronización Activa</string>
+    <string name="title_connecting">⟳ Conectando</string>
+    <string name="title_disconnected">✗ Desconectado</string>
+    <string name="title_error">⚠ Error</string>
+    <string name="title_generic">Estado</string>
+
+    <!-- Notification Service -->
+    <!-- Notification Channels -->
+    <string name="notification_channel_private_messages">Mensajes Privados</string>
+    <string name="notification_channel_mentions">Menciones</string>
+
+    <!-- Notification Titles -->
+    <string name="notification_private_message_title">Mensaje de %1$s</string>
+    <string name="notification_mention_title">Mencionado en %1$s</string>
+
+    <!-- Errors -->
+    <string name="notification_permission_error">Error al enviar notificación por falta de permisos</string>
+
+    <!-- Nick Validator Errors -->
+    <string name="nick_error_empty">El nickname no puede estar vacío</string>
+    <string name="nick_error_too_long">El nickname no puede tener más de 30 caracteres</string>
+    <string name="nick_error_starts_with_number">El nickname no puede comenzar con un número</string>
+    <string name="nick_error_invalid_chars">El nickname contiene caracteres no permitidos</string>
+
+    <!-- IRCService.kt -->
+    <!-- Estados de Conexión -->
+    <string name="sync_state_starting">Iniciando sincronización…</string>
+    <string name="sync_state_active">ACTIVO</string>
+    <string name="sync_state_inactive">INACTIVO</string>
+    <string name="sync_state_disconnected">DESCONECTADO</string>
+    <string name="sync_state_error">ERROR</string>
+
+    <!-- Mensajes de Conexión -->
+    <string name="connection_starting">Iniciando conexión a %1$s:%2$d</string>
+    <string name="connection_active">Sincronización activa: Conectado a %1$s</string>
+    <string name="connection_interrupted">Sincronización interrumpida: Desconectado del servidor</string>
+    <string name="connection_failed">Intento de conexión fallido: %1$s</string>
+
+    <!-- Mensajes de Canales -->
+    <string name="channels_synchronized">Sincronizados %1$d canales del servidor</string>
+    <string name="users_in_channel">Usuarios en %1$s: %2$s</string>
+    <string name="topic_by">Tema por %1$s: "%2$s"</string>
+    <string name="topic_current">Tema: "%1$s"</string>
+    <string name="no_topic">Sin tema</string>
+
+    <!-- Eventos de Usuario -->
+    <string name="user_joined">%1$s entra al canal</string>
+    <string name="user_left">%1$s ha salido del canal</string>
+    <string name="user_quit">%1$s se ha desconectado</string>
+    <string name="user_disconnected">%1$s se ha desconectado</string>
+    <string name="user_kicked">%1$s fue expulsado por %2$s</string>
+    <string name="user_nick_changed">%1$s ahora es %2$s</string>
+    <string name="user_invited">%1$s te ha invitado al canal %2$s</string>
+    <string name="event_nick_change">%1$s ahora se conoce como %2$s en %3$s</string>
+
+    <!-- Eventos de Modo -->
+    <string name="user_op">%1$s ahora es Op</string>
+    <string name="user_deop">%1$s ya no es Op</string>
+    <string name="user_voice">%1$s ha recibido voz</string>
+    <string name="user_devoice">%1$s ha perdido su voz</string>
+    <string name="user_halfop">%1$s ha sido promocionado a medio operador</string>
+    <string name="user_dehalfop">%1$s ha sido removido de medio operador</string>
+    <string name="user_ban">%1$s ha sido baneado del canal %2$s</string>
+    <string name="user_unban">%1$s ha sido desbaneado</string>
+    <string name="mode_changed">Modo cambiado: %1$s por %2$s</string>
+    <string name="user_mode_changed">Tu modo de usuario ha cambiado: %1$s</string>
+
+    <!-- Mensajes Privados -->
+    <string name="private_messages_blocked">Mis privados están bloqueados</string>
+    <string name="user_blocked_message">Has sido bloqueado</string>
+
+    <!-- Información WHOIS -->
+    <string name="whois_title">WHOIS para %1$s</string>
+    <string name="whois_real_name">Nombre real: %1$s</string>
+    <string name="whois_login">Login: %1$s</string>
+    <string name="whois_host">Host: %1$s</string>
+    <string name="whois_server">Servidor: %1$s</string>
+    <string name="whois_server_info">Info del servidor: %1$s</string>
+    <string name="whois_idle">Inactivo: %1$ss</string>
+    <string name="whois_signon">Conectado desde: %1$s</string>
+    <string name="whois_op_channels">🔧 Operador en: %1$s</string>
+    <string name="whois_channels">👥 Canales: %1$s</string>
+    <string name="whois_no_channels">No está en ningún canal visible.</string>
+    <string name="whois_unknown_server">Desconocido</string>
+    <string name="whois_no_server_info">Sin información del servidor</string>
+
+    <!-- Solicitudes CTCP -->
+    <string name="ctcp_version_received">Solicitud CTCP VERSION recibida</string>
+    <string name="ctcp_finger_received">Solicitud CTCP FINGER recibida</string>
+    <string name="ctcp_time_received">Solicitud CTCP TIME recibida</string>
+
+    <!-- Mensajes del Sistema -->
+    <string name="server_notice">Aviso del servidor</string>
+    <string name="unknown_command">Comando desconocido: %1$s</string>
+    <string name="server_ping_handled">Ping del servidor recibido y manejado</string>
+    <string name="sync_message_prefix">[Sync] %s</string>
+
+    <!-- Elementos de UI -->
+    <string name="status_conversation">Estado</string>
+    <string name="system_sender">Sistema</string>
+    <string name="server_sender">Servidor</string>
+    <string name="unknown_sender">Desconocido</string>
+
+    <!-- Estado de Conexión -->
+    <string name="reconnecting">Reconectando…</string>
+
+    <!-- Errores -->
+    <string name="error_authentication">Error de autenticación: %1$s</string>
+    <string name="error_connection_timeout">Tiempo de conexión agotado</string>
+    <string name="error_unknown">Error desconocido</string>
+    <string name="error_invalid_charset">Codificación inválida, usando UTF-8 como respaldo</string>
+
+    <!-- Acciones -->
+    <string name="action_connect">Conectar</string>
+    <string name="action_reconnect">Reconectar</string>
+    <string name="action_join_channel">Unirse al Canal</string>
+    <string name="action_leave_channel">Salir del Canal</string>
+    <string name="action_send_message">Enviar Mensaje</string>
+
+    <!-- Configuración -->
+    <string name="settings_block_private_messages">Bloquear Mensajes Privados</string>
+    <string name="settings_ignored_users">Usuarios Ignorados</string>
+    <string name="settings_auto_reconnect">Reconexión Automática</string>
+    <string name="settings_ssl_connection">Conexión SSL</string>
+    <string name="settings_character_encoding">Codificación de Caracteres</string>
+
+    <!--Commands -->
+    <string name="command_usage_format">Uso: %1$s</string>
+    <string name="unknown_error">error desconocido</string>
+    <!-- Comando Whois -->
+    <string name="whois_command_description">Solicitar información detallada de un usuario</string>
+    <string name="whois_command_usage">/whois nickname</string>
+    <string name="whois_error_no_nickname">Debes especificar un nickname para consultar</string>
+    <string name="whois_error_usage">Uso: %1$s</string>
+    <string name="whois_success_message">Información WHOIS para %1$s… mira el STATUS</string>
+    <string name="whois_error_request">Error al solicitar información WHOIS: %1$s</string>
+    <string name="error_no_messages_in_status">No puedes enviar mensajes en esta sala. Solo se permiten comandos.</string>
+
+    <!-- NickCommand strings -->
+    <string name="nick_command_description">Cambiar tu apodo en el servidor</string>
+    <string name="nick_command_usage">/nick nuevoNick</string>
+    <string name="nick_error_no_nickname">Debes especificar un nuevo Nick</string>
+    <string name="nick_error_usage">Uso: %1$s</string>
+    <string name="nick_success_message">Cambiando nick a %1$s…</string>
+    <string name="nick_error_change">Error al cambiar el nick: %1$s</string>
+
+    <!-- JoinCommand strings -->
+    <string name="join_command_description">Unirse a un canal</string>
+    <string name="join_command_usage">/join #canal [contraseña]</string>
+    <string name="join_error_no_channel">Debes especificar un canal al que unirte</string>
+    <string name="join_error_usage">Uso: %1$s</string>
+    <string name="join_error_invalid_channel">El nombre del canal debe comenzar con #. Ejemplo: #Amigos</string>
+    <string name="join_success_message">Uniéndose a %1$s…</string>
+    <string name="join_error_general">Error al unirse al canal: %1$s</string>
+
+    <!-- OpCommand strings -->
+    <string name="op_command_description">Da operador a un usuario en el canal</string>
+    <string name="op_command_usage">/op [canal] nickname</string>
+    <string name="op_error_no_nickname">Debes especificar un nickname</string>
+    <string name="op_error_specify_channel">Debes especificar un canal</string>
+    <string name="op_success_message">Operador dado a %1$s en %2$s</string>
+    <string name="op_error_general">Error al dar operador: %1$s</string>
+
+    <!-- TopicCommand strings -->
+    <string name="topic_command_description">Ver o cambiar el tema del canal</string>
+    <string name="topic_command_usage">/topic [nuevo tema]</string>
+    <string name="topic_error_channel_only">Este comando solo puede usarse en un canal</string>
+    <string name="topic_current_topic">Tema actual: %1$s</string>
+    <string name="topic_no_topic_set">No hay tema establecido para este canal</string>
+    <string name="topic_error_get_topic">Error al obtener el tema: %1$s</string>
+    <string name="topic_success_change_request">Solicitado cambio de tema a: %1$s</string>
+    <string name="topic_error_unknown">Error desconocido al cambiar el tema</string>
+
+    <!-- RawCommand strings -->
+    <string name="raw_command_description">Envía un comando raw directamente al servidor IRC</string>
+    <string name="raw_command_usage">/raw &lt;comando&gt; [argumentos] o /quote &lt;comando&gt; [argumentos]</string>
+    <string name="raw_error_usage">Uso: %1$s</string>
+    <string name="raw_success_command_sent">Comando enviado: %1$s</string>
+    <string name="raw_error_send_command">Error al enviar comando raw: %1$s</string>
+    <string name="raw_error_unknown">Error desconocido</string>
+
+    <!-- OperCommand strings -->
+    <string name="oper_command_description">Obtener privilegios de operador en el servidor</string>
+    <string name="oper_command_usage">/oper &lt;nick&gt; &lt;contraseña&gt;</string>
+    <string name="oper_error_usage">Uso: %1$s</string>
+    <string name="oper_success_request">Solicitando privilegios de operador con el nick %1$s…</string>
+    <string name="oper_error_request">Error al solicitar privilegios de operador: %1$s</string>
+
+    <!-- NoticeCommand strings -->
+    <string name="notice_command_description">Envía un notice a un usuario que se muestra en el canal actual</string>
+    <string name="notice_command_usage">/notice target mensaje</string>
+    <string name="notice_error_specify_target_message">Debes especificar un destinatario y un mensaje</string>
+    <string name="notice_error_usage">Uso: %1$s</string>
+    <string name="notice_success_sent">Notice enviado a %1$s</string>
+    <string name="notice_error_send">Error al enviar notice: %1$s</string>
+
+    <!-- MsgCommand strings -->
+    <string name="msg_command_description">Enviar un mensaje privado a un usuario o servicio</string>
+    <string name="msg_command_usage">/msg &lt;usuario&gt; &lt;mensaje&gt;</string>
+    <string name="msg_error_usage">Uso: %1$s</string>
+    <string name="msg_default_sender">Yo</string>
+    <string name="msg_sent_indicator">[→ %1$s] %2$s</string>
+    <string name="msg_success_sent">Mensaje %1$s [revisa tu Status]</string>
+    <string name="msg_error_send">Error al enviar mensaje a %1$s: %2$s</string>
+
+    <!-- UsersScreen -->
+
+    <string name="users_in_channel_name">Usuarios en %1$s</string>
+    <string name="search_users">Buscar usuarios</string>
+    <string name="user_reported_successfully">Usuario denunciado correctamente</string>
+
+
+</resources>

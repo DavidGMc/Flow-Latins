@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Connection Screen -->
+    <!-- App Bar -->
+    <string name="flowirc_connection">LatinsIRC कनेक्शन</string>
+    <string name="add_server">सर्वर जोड़ें</string>
+    <string name="add_server_desc">नया सर्वर जोड़ें</string>
+
+    <!-- Server Selection -->
+    <string name="select_server">सर्वर चुनें</string>
+    <string name="server">सर्वर</string>
+    <string name="select_irc_network">IRC नेटवर्क चुनें</string>
+    <string name="search_servers">सर्वर खोजें…</string>
+    <string name="no_servers_found">कोई सर्वर नहीं मिला</string>
+    <string name="server_desc">सर्वर आइकन</string>
+    <string name="dropdown_desc">विकल्प विस्तृत करें</string>
+
+    <!-- Connection Form -->
+    <string name="nickname">उपनाम</string>
+    <string name="nickname_hint">अपना IRC उपनाम दर्ज करें</string>
+    <string name="nickname_desc">उपयोगकर्ता आइकन</string>
+    <string name="clear_nickname_desc">उपनाम साफ़ करें</string>
+    <string name="password">पासवर्ड</string>
+    <string name="password_optional">पासवर्ड (वैकल्पिक)</string>
+    <string name="password_hint">यदि आवश्यक हो तो पासवर्ड दर्ज करें</string>
+    <string name="password_desc">लॉक आइकन</string>
+    <string name="show_password_desc">पासवर्ड दिखाएं</string>
+    <string name="hide_password_desc">पासवर्ड छुपाएं</string>
+
+    <!-- Privacy Policy -->
+    <string name="accept_privacy">मैं स्वीकार करता हूं </string>
+    <string name="privacy_policy">गोपनीयता नीति</string>
+
+    <!-- Connection Button -->
+    <string name="connect_button">IRC से कनेक्ट करें</string>
+    <string name="connecting">कनेक्ट हो रहा है…</string>
+
+    <!-- Server Actions -->
+    <string name="edit">संपादित करें</string>
+    <string name="edit_server_desc">सर्वर संपादित करें</string>
+    <string name="delete">हटाएं</string>
+    <string name="delete_server_desc">सर्वर हटाएं</string>
+
+    <!-- Dialogs -->
+    <string name="connection_error">कनेक्शन त्रुटि</string>
+    <string name="reject">अस्वीकार</string>
+    <string name="accept">स्वीकार</string>
+    <string name="disconnecting">डिस्कनेक्ट हो रहा है</string>
+    <string name="clear_search_desc">खोज साफ़ करें</string>
+
+    <!-- Privacy Policy Dialog -->
+    <string name="privacy_policy_title">गोपनीयता नीति</string>
+
+    <!-- Connection States -->
+    <string name="connected">कनेक्टेड</string>
+    <string name="disconnected">डिस्कनेक्टेड</string>
+
+    <!-- Chat Screen -->
+    <string name="chat_title">Latins चैट</string>
+    <string name="message_hint">संदेश</string>
+    <string name="send_button">भेजें</string>
+    <string name="connected_status">कनेक्टेड</string>
+    <string name="disconnected_status">डिस्कनेक्टेड</string>
+
+    <!-- Chat Screen - Disconnect Dialog -->
+    <string name="disconnect_dialog_title">डिस्कनेक्शन की पुष्टि करें</string>
+    <string name="disconnect_dialog_message">क्या आप वाकई सर्वर से डिस्कनेक्ट होना चाहते हैं?</string>
+    <string name="disconnect_button">डिस्कनेक्ट करें</string>
+    <string name="cancel_button">रद्द करें</string>
+
+    <!-- Chat Screen - Premium Dialog -->
+    <string name="premium_dialog_title">प्रीमियम सुविधा</string>
+    <string name="premium_dialog_message">इस सुविधा तक पहुंचने के लिए आपको पंजीकरण करना होगा। क्या आप खाता बनाना चाहते हैं?</string>
+    <string name="register_button">पंजीकरण करें</string>
+    <string name="watch_ad_button">विज्ञापन देखें</string>
+    <string name="premium_feature_description">इस सुविधा के लिए प्रीमियम पहुंच की आवश्यकता है। आप पंजीकरण कर सकते हैं, लॉग इन कर सकते हैं, या अस्थायी पहुंच के लिए वीडियो देख सकते हैं (1 घंटा)</string>
+    <string name="watch_video">वीडियो देखें</string>
+    <string name="premium_access_granted">बधाई हो! आपको 1 घंटे के लिए प्रीमियम पहुंच मिल गई है</string>
+
+    <!-- Chat Screen - User List Dialog -->
+    <string name="user_list_dialog_title">उपयोगकर्ता सूची देखें</string>
+    <string name="user_list_dialog_message">आप एक छोटा विज्ञापन देखकर उपयोगकर्ता सूची देख सकते हैं</string>
+    <string name="users">उपयोगकर्ता</string>
+
+    <!-- Chat Screen User suggestions dropdown -->
+    <string name="user_list_title">उपयोगकर्ता</string>
+    <string name="user_no_matches">कोई मिलान नहीं मिला</string>
+
+    <!-- Chat Screen - Message Context Menu -->
+    <string name="menu_mention">उल्लेख करें</string>
+    <string name="menu_open_private">निजी चैट खोलें</string>
+    <string name="menu_block_user">उपयोगकर्ता को ब्लॉक करें</string>
+    <string name="menu_unblock_user">उपयोगकर्ता को अनब्लॉक करें</string>
+    <string name="menu_ignore_user">उपयोगकर्ता को अनदेखा करें (वैश्विक)</string>
+    <string name="menu_unignore_user">उपयोगकर्ता को अनअनदेखा करें (वैश्विक)</string>
+    <string name="menu_ignore_channel">इस कमरे में अनदेखा करें</string>
+    <string name="menu_unignore_channel">इस कमरे में अनअनदेखा करें</string>
+    <string name="menu_report_user">उपयोगकर्ता/सामग्री की रिपोर्ट करें</string>
+    <string name="menu_copy_message">संदेश कॉपी करें</string>
+    <string name="ignored_globally">वैश्विक रूप से अनदेखा किया गया</string>
+    <string name="blocked">ब्लॉक किया गया</string>
+    <string name="ignored_in_channel">चैनल में अनदेखा किया गया</string>
+    <string name="see_profile">प्रोफ़ाइल देखें</string>
+    <string name="ignore_in_channel">%1$s में अनदेखा करें</string>
+    <string name="unignore_in_channel">%1$s में अनअनदेखा करें</string>
+    <string name="premium">प्रीमियम</string>
+
+    <!-- Chat Screen - Report Dialog -->
+    <string name="report_dialog_title">उपयोगकर्ता की रिपोर्ट करें</string>
+    <string name="report_dialog_message">आप उपयोगकर्ता की रिपोर्ट कर रहे हैं: %1$s\nकृपया अपनी रिपोर्ट का कारण बताएं:</string>
+    <string name="report_email_warning">रिपोर्ट भेजने के लिए आपका ईमेल क्लाइंट खुलेगा</string>
+    <string name="report_hint">यहां कारण लिखें…</string>
+    <string name="report_button">रिपोर्ट करें</string>
+    <string name="report_success">आपकी रिपोर्ट जमा कर दी गई है</string>
+
+    <!-- Formatage des Messages -->
+    <string name="text_formatting_title">Formatage du Texte</string>
+    <string name="format_bold">Gras</string>
+    <string name="format_italic">Italique</string>
+    <string name="format_underline">Souligné</string>
+    <string name="format_strikethrough">Barré</string>
+    <string name="format_color">Couleur du Texte</string>
+    <string name="format_bg_color">Couleur de Fond</string>
+    <string name="format_reset">Réinitialiser</string>
+    <string name="no_background_color"> pas de couleur de fond</string>
+    <string name="format_clear_all">Tout Effacer</string>
+    <string name="format_sample_text">Exemple de Texte</string>
+
+    <!-- Messages d\'État -->
+    <string name="status_connected">Connecté au serveur</string>
+    <string name="status_disconnected">Déconnecté du serveur</string>
+    <string name="status_joining">Rejoint le salon %1$s</string>
+    <string name="status_parting">Quitte le salon %1$s</string>
+
+
+    <!-- Chat Screen Notifications -->
+    <string name="notification_channel_name">संदेश</string>
+    <string name="notification_title">%1$s में नया संदेश</string>
+    <string name="notification_content">%1$s से: %2$s</string>
+    <string name="unread_message_singular">%1$d नया संदेश</string>
+    <string name="unread_message_plural">%1$d नए संदेश</string>
+
+    <!--  Chat Screen User Interface -->
+    <string name="action_settings">सेटिंग्स</string>
+    <string name="action_profile">प्रोफ़ाइल</string>
+    <string name="action_community">समुदाय</string>
+    <string name="action_ads">विज्ञापन</string>
+    <string name="action_colors">IRC रंग</string>
+    <string name="action_disconnect">डिस्कनेक्ट करें</string>
+    <string name="action_login">लॉगिन</string>
+    <string name="action_register">पंजीकरण</string>
+
+    <!-- Chat Screen Errors -->
+    <string name="error_network">नेटवर्क त्रुटि हुई</string>
+    <string name="error_invalid_command">अमान्य कमांड</string>
+    <string name="error_nick_in_use">उपनाम पहले से उपयोग में है</string>
+    <string name="error_channel_full">चैनल भरा हुआ है</string>
+    <string name="error_invite_only">चैनल केवल आमंत्रण पर</string>
+    <string name="error_banned">आप इस चैनल से प्रतिबंधित हैं</string>
+
+    <!-- Chat Screen Success Messages -->
+    <string name="success_message_sent">संदेश भेजा गया</string>
+    <string name="success_user_blocked">उपयोगकर्ता ब्लॉक किया गया</string>
+    <string name="success_user_unblocked">उपयोगकर्ता अनब्लॉक किया गया</string>
+
+    <!-- Chat Screen Copy Messages -->
+    <string name="message_copied">संदेश कॉपी किया गया</string>
+    <string name="link_copied">लिंक कॉपी किया गया</string>
+    <string name="clipboard_copy_label">संदेश</string>
+    <string name="clipboard_success">क्लिपबोर्ड में कॉपी किया गया</string>
+
+    <!-- Chat Screen Time Formats -->
+    <string name="time_format">HH:mm</string>
+    <string name="date_format">MMM dd, yyyy</string>
+
+    <!-- Chat Screen URL Handling -->
+    <string name="url_open_error">लिंक नहीं खोला जा सका</string>
+    <string name="url_open_not_link">यह टेक्स्ट एक लिंक नहीं है</string>
+    <string name="external_link">बाहरी लिंक</string>
+    <string name="url_preview_description">लिंक प्रीव्यू: %1$s</string>
+
+    <!-- ColorSettingsScreen  -->
+    <!-- Titles -->
+    <string name="color_settings_title">रंग सेटिंग्स</string>
+    <string name="color_options_title">रंग विकल्प</string>
+    <string name="plain_text_mode_title">सादा टेक्स्ट मोड</string>
+    <string name="default_color_title">डिफ़ॉल्ट रंग</string>
+    <string name="background_color_title">पृष्ठभूमि रंग</string>
+    <string name="combined_preview_title">संयुक्त पूर्वावलोकन</string>
+    <string name="format_reset_title">फॉर्मेट रीसेट</string>
+    <string name="formatting_guide_title">फॉर्मेटिंग कोड गाइड</string>
+
+    <!-- Descriptions -->
+    <string name="show_colors_in_messages">संदेशों में रंग दिखाएं</string>
+    <string name="color_setting_description">जब रंग सक्षम होते हैं, तो IRC चैट में अन्य उपयोगकर्ताओं द्वारा उपयोग किए गए फॉर्मेट और रंग प्रदर्शित होंगे।</string>
+    <string name="remove_formatting_codes">फॉर्मेटिंग कोड अपने आप हटाएं</string>
+    <string name="remove_formatting_description">जब सक्षम हो, तो टाइप करते समय सभी रंग और फॉर्मेटिंग कोड हटा दिए जाएंगे</string>
+    <string name="select_default_color">अपने संदेशों में उपयोग करने के लिए डिफ़ॉल्ट रंग चुनें:</string>
+    <string name="selected_color">चुना गया रंग: %1$d</string>
+    <string name="select_background_color">चैट फ़ील्ड के लिए पृष्ठभूमि रंग चुनें:</string>
+    <string name="selected_background_color">चुना गया पृष्ठभूमि रंग: %1$s</string>
+    <string name="combined_preview_description">चुने गए डिफ़ॉल्ट रंग और पृष्ठभूमि के साथ आपका संदेश इस तरह दिखेगा:</string>
+    <string name="remove_all_formats">अपने संदेशों से सभी फॉर्मेटिंग और रंग हटाएं:</string>
+    <string name="formatting_codes_usage">निम्नलिखित कोड का उपयोग अपने संदेशों को फॉर्मेट करने के लिए किया जा सकता है:</string>
+    <string name="available_color_codes">उपलब्ध रंग कोड:</string>
+    <string name="example_text_with_format">फॉर्मेट के साथ टेक्स्ट का उदाहरण:</string>
+    <string name="example_message">यह एक उदाहरण संदेश है</string>
+
+    <!-- Buttons -->
+    <string name="reset">रीसेट करें</string>
+    <string name="remove_formats">फॉर्मेट हटाएं</string>
+    <string name="restore_example">उदाहरण पुनर्स्थापित करें</string>
+
+    <!-- Examples -->
+    <string name="formatted_text_example">मूल टेक्स्ट (फॉर्मेटिंग के साथ):</string>
+    <string name="plain_text_result">फॉर्मेट हटाने के बाद परिणाम:</string>
+    <string name="plain_text_output">सादा टेक्स्ट परिणाम:</string>
+    <string name="converted_to_plain_text">सादे टेक्स्ट में बदला गया: &quot;%1$s&quot;</string>
+
+    <!-- Others -->
+    <string name="sample_text_part1">यह एक </string>
+    <string name="sample_text_bold">नमूना संदेश</string>
+    <string name="sample_text_part2"> है </string>
+    <string name="sample_text_colored">रंगों</string>
+    <string name="sample_text_part3"> और </string>
+    <string name="sample_text_colored_bg">फॉर्मेटिंग</string>
+
+    <!-- AddServerScreen -->
+    <string name="add_custom_server">कस्टम सर्वर जोड़ें</string>
+    <string name="back">वापस</string>
+    <string name="server_name">सर्वर नाम</string>
+    <string name="server_url">सर्वर URL</string>
+    <string name="port">पोर्ट</string>
+    <string name="use_ssl">SSL का उपयोग करें</string>
+    <string name="real_name">वास्तविक नाम</string>
+    <string name="auto_join_channels">ऑटो-जॉइन चैनल</string>
+    <string name="channel_example">#channel1, #channel2</string>
+    <string name="save_server">सर्वर सेव करें</string>
+    <string name="ad_loading">विज्ञापन लोड हो रहा है… सेव में देरी हो सकती है</string>
+    <string name="error">त्रुटि</string>
+    <string name="ok">ठीक है</string>
+    <string name="ad_not_ready">विज्ञापन तैयार नहीं</string>
+    <string name="ad_not_ready_message">पुरस्कृत विज्ञापन अभी तैयार नहीं है। कृपया एक क्षण में फिर से कोशिश करें।</string>
+
+    <!-- Community Screen      -->
+    <string name="Community">समुदाय </string>
+    <string name="search_placeholder">नाम या देश से खोजें…</string>
+    <string name="search_icon_desc">खोजें</string>
+    <string name="no_profiles_found">कोई प्रोफ़ाइल नहीं मिली</string>
+    <string name="no_matching_profiles">आपकी खोज से कोई प्रोफ़ाइल मेल नहीं खाती</string>
+    <string name="try_refreshing">पेज को ताज़ा करने की कोशिश करें</string>
+    <string name="try_different_term">एक अलग खोज शब्द की कोशिश करें</string>
+    <string name="refresh_button">ताज़ा करें</string>
+    <string name="clear_search_button">खोज साफ़ करें</string>
+    <string name="loading_profiles">प्रोफ़ाइल लोड हो रही हैं…</string>
+    <string name="person_icon_desc">प्रोफ़ाइल आइकन</string>
+
+    <!-- Login Screen -->
+    <string name="welcome_back">वापस स्वागत है</string>
+    <string name="email">ईमेल</string>
+    <string name="forgot_password">पासवर्ड भूल गए?</string>
+    <string name="sign_in">साइन इन</string>
+    <string name="empty_fields">कृपया सभी फ़ील्ड भरें</string>
+    <string name="no_account">खाता नहीं है? साइन अप करें</string>
+    <string name="sign_up">साइन अप</string>
+    <string name="loading">लोड हो रहा है…</string>
+
+    <!-- Profile Screen -->
+    <string name="edit_profile">प्रोफ़ाइल संपादित करें</string>
+    <string name="profile_picture">प्रोफ़ाइल तस्वीर</string>
+    <string name="change_picture">तस्वीर बदलें</string>
+    <string name="name">उपनाम</string>
+    <string name="age">उम्र</string>
+    <string name="country">देश</string>
+    <string name="preferred_server">पसंदीदा सर्वर</string>
+    <string name="save_changes">परिवर्तन सेव करें</string>
+    <string name="sign_out">साइन आउट</string>
+    <string name="delete_account">खाता हटाएं</string>
+    <string name="delete_account_title">खाता हटाएं</string>
+    <string name="delete_account_message">क्या आप वाकई अपना खाता हटाना चाहते हैं? यह क्रिया पूर्ववत नहीं की जा सकती।</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="loading_profile">प्रोफ़ाइल लोड हो रही है…</string>
+
+    <!-- Registration Screen -->
+    <string name="register_title">पंजीकरण</string>
+    <string name="name_error">उपनाम \'%1$s\' पहले से उपयोग में है। कृपया कोई और चुनें।</string>
+    <string name="check_availability">उपनाम उपलब्धता जांचें</string>
+    <string name="nick_available">उपनाम उपलब्ध है!</string>
+    <string name="enter_nick_to_check">जांचने के लिए कृपया एक उपनाम दर्ज करें</string>
+    <string name="confirm_password">पासवर्ड की पुष्टि करें</string>
+    <string name="register_button_user">पंजीकरण करें</string>
+    <string name="processing">प्रोसेसिंग</string>
+    <string name="registering_user">उपयोगकर्ता पंजीकरण कर रहे हैं…</string>
+    <string name="checking_nick">उपनाम उपलब्धता जांच रहे हैं…</string>
+    <string name="required_fields">कृपया सभी आवश्यक फ़ील्ड भरें</string>
+    <string name="password_mismatch">पासवर्ड मेल नहीं खाते</string>
+    <string name="already_have_account">पहले से खाता है? यहां साइन इन करें</string>
+
+    <!-- Reset Password Screen -->
+    <string name="reset_password_title">पासवर्ड रीसेट करें</string>
+    <string name="reset_password_instructions">अपना ईमेल पता दर्ज करें और हम आपको पासवर्ड रीसेट करने के लिए एक लिंक भेजेंगे।</string>
+    <string name="email_hint">ईमेल</string>
+    <string name="send_reset_link">रीसेट लिंक भेजें</string>
+    <string name="back_to_sign_in">साइन इन पर वापस जाएं</string>
+    <string name="reset_email_sent">पासवर्ड रीसेट ईमेल भेजा गया। कृपया अपना इनबॉक्स जांचें।</string>
+    <string name="enter_email_message">कृपया अपना ईमेल दर्ज करें</string>
+
+    <!-- User Profile Screen -->
+    <string name="user_profile_title">उपयोगकर्ता प्रोफ़ाइल</string>
+    <string name="profile_picture_desc">%1$s की प्रोफ़ाइल तस्वीर</string>
+    <string name="member_since">सदस्य बने</string>
+    <string name="last_updated">अंतिम अपडेट</string>
+    <string name="user_not_found">उपयोगकर्ता नहीं मिला</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">चैट सेटिंग्स</string>
+    <string name="back_desc">वापस जाएं</string>
+    <string name="events_section">चैट इवेंट्स</string>
+    <string name="show_joins">जॉइन इवेंट्स दिखाएं</string>
+    <string name="show_joins_desc">दिखाएं जब उपयोगकर्ता सर्वर से कनेक्ट होते हैं</string>
+    <string name="show_quits">छोड़ने के इवेंट्स दिखाएं</string>
+    <string name="show_quits_desc">दिखाएं जब उपयोगकर्ता सर्वर से डिस्कनेक्ट होते हैं</string>
+    <string name="show_parts">पार्ट इवेंट्स दिखाएं</string>
+    <string name="show_parts_desc">दिखाएं जब उपयोगकर्ता चैनल छोड़ते हैं</string>
+    <string name="show_bans">बैन इवेंट्स दिखाएं</string>
+    <string name="show_bans_desc">दिखाएं जब कोई उपयोगकर्ता प्रतिबंधित होता है</string>
+    <string name="appearance_section">रूप-रंग</string>
+    <string name="font_size">फ़ॉन्ट साइज़</string>
+    <string name="font_size_unit">%dsp</string>
+    <string name="block_pms">निजी संदेश ब्लॉक करें</string>
+    <string name="block_pms_desc">सभी निजी संदेश ब्लॉक करें</string>
+    <string name="blocked_users_section">ब्लॉक किए गए उपयोगकर्ता</string>
+    <string name="global_ignored_section">वैश्विक रूप से अनदेखा किए गए उपयोगकर्ता</string>
+    <string name="channel_ignored_section">#%1$s में अनदेखा किए गए उपयोगकर्ता</string>
+    <string name="all_blocked_section">सभी ब्लॉक और अनदेखा किए गए उपयोगकर्ता</string>
+    <string name="unblock_user_desc">उपयोगकर्ता को अनब्लॉक करें</string>
+
+    <!-- Channels Screen -->
+    <!-- Channels Screen -->
+    <string name="available_channels">उपलब्ध चैनल</string>
+    <string name="refresh_channels">चैनल सूची रीफ्रेश करें</string>
+    <string name="loading_channels">चैनल लोड हो रहे हैं…</string>
+    <string name="search_channels">चैनल खोजें</string>
+    <string name="search">खोजें</string>
+    <string name="sort_by_users">उपयोगकर्ताओं के अनुसार क्रमबद्ध करें</string>
+    <string name="no_channels_found">कोई चैनल नहीं मिला</string>
+    <string name="users_desc">उपयोगकर्ता संख्या</string>
+
+    <!-- Connection Service -->
+    <string name="connection_channel_id">connection_status</string>
+    <string name="connection_channel_name">कनेक्शन स्थिति</string>
+    <string name="connection_channel_description">रीयल टाइम में IRC संदेश समन्वयन को सक्रिय रखता है</string>
+
+    <string name="notification_title_connection">LatinsIRC - समन्वयन</string>
+    <string name="notification_content_connection">रीयल टाइम में IRC संदेशों का समन्वयन। यह कार्य आपके कनेक्शन को सक्रिय रखता है और बैकग्राउंड में चैनलों और उपयोगकर्ताओं से अपडेट प्राप्त करता है।</string>
+    <string name="notification_stop_action">समन्वयन बंद करें</string>
+
+    <string name="state_connecting">सर्वर से कनेक्ट हो रहा है…</string>
+    <string name="state_connected">कनेक्ट और समन्वयन कर रहा है</string>
+    <string name="state_disconnecting">डिस्कनेक्ट हो रहा है…</string>
+    <string name="state_disconnected">डिस्कनेक्ट</string>
+    <string name="state_error">कनेक्शन त्रुटि</string>
+    <string name="state_unknown">अज्ञात स्थिति</string>
+
+    <string name="sync_active">✓ डेटा समन्वयन सक्रिय: संदेश और उपयोगकर्ता रीयल टाइम में अपडेट हो रहे हैं</string>
+    <string name="sync_starting">⟳ IRC सर्वर के साथ डेटा समन्वयन शुरू हो रहा है…</string>
+    <string name="sync_disconnected">✗ डेटा समन्वयन बंद। अपडेट प्राप्त करने के लिए कनेक्ट करें</string>
+    <string name="sync_error">⚠ डेटा समन्वयन त्रुटि। अपना इंटरनेट कनेक्शन जांचें</string>
+    <string name="sync_default">⟳ समन्वयन स्थिति: %s</string>
+
+    <string name="title_active">✓ सक्रिय समन्वयन</string>
+    <string name="title_connecting">⟳ कनेक्ट हो रहा है</string>
+    <string name="title_disconnected">✗ डिस्कनेक्ट</string>
+    <string name="title_error">⚠ त्रुटि</string>
+    <string name="title_generic">स्थिति</string>
+
+    <!-- Notification Service -->
+    <!-- Notification Channels -->
+    <string name="notification_channel_private_messages">निजी संदेश</string>
+    <string name="notification_channel_mentions">उल्लेख</string>
+
+    <!-- Notification Titles -->
+    <string name="notification_private_message_title">%1$s से संदेश</string>
+    <string name="notification_mention_title">%1$s में उल्लेख</string>
+
+    <!-- Errors -->
+    <string name="notification_permission_error">अनुमति न होने के कारण सूचना भेजने में विफल</string>
+
+    <!-- Nick Validator Errors -->
+    <string name="nick_error_empty">उपनाम खाली नहीं हो सकता</string>
+    <string name="nick_error_too_long">उपनाम 30 अक्षरों से अधिक नहीं हो सकता</string>
+    <string name="nick_error_starts_with_number">उपनाम संख्या से शुरू नहीं हो सकता</string>
+    <string name="nick_error_invalid_chars">उपनाम में अमान्य अक्षर हैं</string>
+
+    <!-- IRCService.kt -->
+    <!-- Connection States -->
+    <string name="sync_state_starting">समन्वयन शुरू हो रहा है…</string>
+    <string name="sync_state_active">सक्रिय</string>
+    <string name="sync_state_inactive">निष्क्रिय</string>
+    <string name="sync_state_disconnected">डिस्कनेक्ट</string>
+    <string name="sync_state_error">त्रुटि</string>
+
+    <!-- Connection Messages -->
+    <string name="connection_starting">%1$s:%2$d से कनेक्शन शुरू हो रहा है</string>
+    <string name="connection_active">सक्रिय समन्वयन: %1$s से कनेक्ट</string>
+    <string name="connection_interrupted">समन्वयन बाधित: सर्वर से डिस्कनेक्ट</string>
+    <string name="connection_failed">कनेक्शन प्रयास विफल: %1$s</string>
+
+    <!-- Channel Messages -->
+    <string name="channels_synchronized">सर्वर से %1$d चैनल समन्वयित</string>
+    <string name="users_in_channel">%1$s में उपयोगकर्ता: %2$s</string>
+    <string name="topic_by">%1$s द्वारा विषय: "%2$s"</string>
+    <string name="topic_current">विषय: "%1$s"</string>
+    <string name="no_topic">कोई विषय नहीं</string>
+
+    <!-- User Events -->
+    <string name="user_joined">%1$s चैनल में शामिल हुआ है</string>
+    <string name="user_left">%1$s ने चैनल छोड़ दिया है</string>
+    <string name="user_quit">%1$s डिस्कनेक्ट हो गया है</string>
+    <string name="user_disconnected">%1$s डिस्कनेक्ट हो गया है</string>
+    <string name="user_kicked">%1$s को %2$s द्वारा निकाला गया</string>
+    <string name="user_nick_changed">%1$s अब %2$s के नाम से जाना जाता है</string>
+    <string name="user_invited">%1$s ने आपको चैनल %2$s पर आमंत्रित किया है</string>
+    <string name="event_nick_change">%1$s अब %3$s में %2$s के नाम से जाना जाता है</string>
+
+    <!-- Mode Events -->
+    <string name="user_op">%1$s को ऑपरेटर बनाया गया है</string>
+    <string name="user_deop">%1$s से ऑपरेटर हटाया गया है</string>
+    <string name="user_voice">%1$s को आवाज़ मिली है</string>
+    <string name="user_devoice">%1$s की आवाज़ हटाई गई है</string>
+    <string name="user_halfop">%1$s को हाफ ऑपरेटर बनाया गया है</string>
+    <string name="user_dehalfop">%1$s से हाफ ऑपरेटर हटाया गया है</string>
+    <string name="user_ban">%1$s को चैनल %2$s से प्रतिबंधित किया गया है</string>
+    <string name="user_unban">%1$s का प्रतिबंध हटाया गया है</string>
+    <string name="mode_changed">मोड बदला गया: %2$s द्वारा %1$s</string>
+    <string name="user_mode_changed">आपका उपयोगकर्ता मोड बदल गया है: %1$s</string>
+
+    <!-- Private Messages -->
+    <string name="private_messages_blocked">मेरे निजी संदेश ब्लॉक हैं</string>
+    <string name="user_blocked_message">आप ब्लॉक कर दिए गए हैं</string>
+
+    <!-- WHOIS Information -->
+    <string name="whois_title">%1$s के लिए WHOIS</string>
+    <string name="whois_real_name">वास्तविक नाम: %1$s</string>
+    <string name="whois_login">लॉगिन: %1$s</string>
+    <string name="whois_host">होस्ट: %1$s</string>
+    <string name="whois_server">सर्वर: %1$s</string>
+    <string name="whois_server_info">सर्वर जानकारी: %1$s</string>
+    <string name="whois_idle">निष्क्रिय: %1$ss</string>
+    <string name="whois_signon">कनेक्ट हुआ: %1$s</string>
+    <string name="whois_op_channels">🔧 ऑपरेटर में: %1$s</string>
+    <string name="whois_channels">👥 चैनल: %1$s</string>
+    <string name="whois_no_channels">किसी दृश्य चैनल में नहीं।</string>
+    <string name="whois_unknown_server">अज्ञात</string>
+    <string name="whois_no_server_info">कोई सर्वर जानकारी नहीं</string>
+
+    <!-- CTCP Requests -->
+    <string name="ctcp_version_received">CTCP VERSION अनुरोध प्राप्त</string>
+    <string name="ctcp_finger_received">CTCP FINGER अनुरोध प्राप्त</string>
+    <string name="ctcp_time_received">CTCP TIME अनुरोध प्राप्त</string>
+
+    <!-- System Messages -->
+    <string name="server_notice">सर्वर सूचना</string>
+    <string name="unknown_command">अज्ञात कमांड: %1$s</string>
+    <string name="server_ping_handled">सर्वर पिंग प्राप्त और संभाला गया</string>
+    <string name="system_sender">सिस्टम</string>
+    <string name="sync_message_prefix">[Sync] %s</string>
+
+    <!-- UI Elements -->
+    <string name="status_conversation">स्थिति</string>
+    <string name="server_sender">सर्वर</string>
+    <string name="unknown_sender">अज्ञात</string>
+
+    <!-- Connection Status -->
+    <string name="reconnecting">पुनः कनेक्ट हो रहा है…</string>
+
+    <!-- Errors -->
+    <string name="error_authentication">प्रमाणीकरण त्रुटि: %1$s</string>
+    <string name="error_connection_timeout">कनेक्शन टाइमआउट</string>
+    <string name="error_unknown">अज्ञात त्रुटि</string>
+    <string name="error_invalid_charset">अमान्य कैरेक्टर सेट, UTF-8 को फॉलबैक के रूप में उपयोग</string>
+
+    <!-- Actions -->
+    <string name="action_connect">कनेक्ट करें</string>
+    <string name="action_reconnect">पुनः कनेक्ट करें</string>
+    <string name="action_join_channel">चैनल में शामिल हों</string>
+    <string name="action_leave_channel">चैनल छोड़ें</string>
+    <string name="action_send_message">संदेश भेजें</string>
+
+    <!-- Settings -->
+    <string name="settings_block_private_messages">निजी संदेश ब्लॉक करें</string>
+    <string name="settings_ignored_users">अनदेखे उपयोगकर्ता</string>
+    <string name="settings_auto_reconnect">स्वचालित पुनः कनेक्ट</string>
+    <string name="settings_ssl_connection">SSL कनेक्शन</string>
+    <string name="settings_character_encoding">कैरेक्टर एन्कोडिंग</string>
+
+    <!-- Commands  -->
+    <string name="command_usage_format">उपयोग: %1$s</string>
+    <string name="unknown_error">अज्ञात त्रुटि</string>
+    <!-- Whois Command -->
+    <string name="whois_command_description">उपयोगकर्ता के बारे में विस्तृत जानकारी का अनुरोध करें</string>
+    <string name="whois_command_usage">/whois उपनाम</string>
+    <string name="whois_error_no_nickname">आपको क्वेरी के लिए उपनाम निर्दिष्ट करना होगा</string>
+    <string name="whois_error_usage">उपयोग: %1$s</string>
+    <string name="whois_success_message">%1$s के लिए WHOIS जानकारी… STATUS देखें</string>
+    <string name="whois_error_request">WHOIS जानकारी का अनुरोध करने में त्रुटि: %1$s</string>
+    <string name="error_no_messages_in_status">आप इस कमरे में संदेश नहीं भेज सकते। केवल कमांड की अनुमति है।</string>
+
+    <!-- NickCommand strings -->
+    <string name="nick_command_description">सर्वर पर अपना उपनाम बदलें</string>
+    <string name="nick_command_usage">/nick नयाउपनाम</string>
+    <string name="nick_error_no_nickname">आपको नया उपनाम निर्दिष्ट करना होगा</string>
+    <string name="nick_error_usage">उपयोग: %1$s</string>
+    <string name="nick_success_message">उपनाम %1$s में बदला जा रहा है…</string>
+    <string name="nick_error_change">उपनाम बदलने में त्रुटि: %1$s</string>
+
+    <!-- JoinCommand strings -->
+    <string name="join_command_description">चैनल में शामिल हों</string>
+    <string name="join_command_usage">/join #चैनल [पासवर्ड]</string>
+    <string name="join_error_no_channel">आपको शामिल होने के लिए चैनल निर्दिष्ट करना होगा</string>
+    <string name="join_error_usage">उपयोग: %1$s</string>
+    <string name="join_error_invalid_channel">चैनल का नाम # से शुरू होना चाहिए। उदाहरण: #दोस्त</string>
+    <string name="join_success_message">%1$s में शामिल हो रहे हैं…</string>
+    <string name="join_error_general">चैनल में शामिल होने में त्रुटि: %1$s</string>
+
+    <!--OpCommand strings -->
+    <string name="op_command_description">चैनल में उपयोगकर्ता को ऑपरेटर स्थिति दें</string>
+    <string name="op_command_usage">/op [चैनल] उपनाम</string>
+    <string name="op_error_no_nickname">आपको उपनाम निर्दिष्ट करना होगा</string>
+    <string name="op_error_specify_channel">आपको चैनल निर्दिष्ट करना होगा</string>
+    <string name="op_success_message">%2$s में %1$s को ऑपरेटर स्थिति दी गई</string>
+    <string name="op_error_general">ऑपरेटर स्थिति देने में त्रुटि: %1$s</string>
+
+    <!-- TopicCommand strings -->
+    <string name="topic_command_description">चैनल विषय देखें या बदलें</string>
+    <string name="topic_command_usage">/topic [नया विषय]</string>
+    <string name="topic_error_channel_only">यह कमांड केवल चैनल में इस्तेमाल किया जा सकता है</string>
+    <string name="topic_current_topic">वर्तमान विषय: %1$s</string>
+    <string name="topic_no_topic_set">इस चैनल के लिए कोई विषय सेट नहीं है</string>
+    <string name="topic_error_get_topic">विषय प्राप्त करने में त्रुटि: %1$s</string>
+    <string name="topic_success_change_request">विषय बदलने का अनुरोध: %1$s</string>
+    <string name="topic_error_unknown">विषय बदलते समय अज्ञात त्रुटि</string>
+
+    <!-- RawCommand strings -->
+    <string name="raw_command_description">IRC सर्वर को सीधे raw कमांड भेजें</string>
+    <string name="raw_command_usage">/raw &lt;कमांड&gt; [तर्क] या /quote &lt;कमांड&gt; [तर्क]</string>
+    <string name="raw_error_usage">उपयोग: %1$s</string>
+    <string name="raw_success_command_sent">कमांड भेजा गया: %1$s</string>
+    <string name="raw_error_send_command">raw कमांड भेजने में त्रुटि: %1$s</string>
+    <string name="raw_error_unknown">अज्ञात त्रुटि</string>
+
+    <!-- OperCommand strings -->
+    <string name="oper_command_description">सर्वर पर ऑपरेटर विशेषाधिकार प्राप्त करें</string>
+    <string name="oper_command_usage">/oper &lt;उपनाम&gt; &lt;पासवर्ड&gt;</string>
+    <string name="oper_error_usage">उपयोग: %1$s</string>
+    <string name="oper_success_request">उपनाम %1$s के साथ ऑपरेटर विशेषाधिकार का अनुरोध…</string>
+    <string name="oper_error_request">ऑपरेटर विशेषाधिकार का अनुरोध करने में त्रुटि: %1$s</string>
+
+    <!-- NoticeCommand strings -->
+    <string name="notice_command_description">उपयोगकर्ता को सूचना भेजें जो वर्तमान चैनल में दिखाई जाती है</string>
+    <string name="notice_command_usage">/notice लक्ष्य संदेश</string>
+    <string name="notice_error_specify_target_message">आपको प्राप्तकर्ता और संदेश निर्दिष्ट करना होगा</string>
+    <string name="notice_error_usage">उपयोग: %1$s</string>
+    <string name="notice_success_sent">%1$s को सूचना भेजी गई</string>
+    <string name="notice_error_send">सूचना भेजने में त्रुटि: %1$s</string>
+
+    <!-- MsgCommand strings -->
+    <string name="msg_command_description">उपयोगकर्ता या सेवा को निजी संदेश भेजें</string>
+    <string name="msg_command_usage">/msg &lt;उपयोगकर्ता&gt; &lt;संदेश&gt;</string>
+    <string name="msg_error_usage">उपयोग: %1$s</string>
+    <string name="msg_default_sender">मैं</string>
+    <string name="msg_sent_indicator">[→ %1$s] %2$s</string>
+    <string name="msg_success_sent">संदेश %1$s [अपनी स्थिति देखें]</string>
+    <string name="msg_error_send">%1$s को संदेश भेजने में त्रुटि: %2$s</string>
+
+    <!-- UsersScreen -->
+    <string name="users_in_channel_name">%1$s में उपयोगकर्ता</string>
+    <string name="search_users">उपयोगकर्ता खोजें</string>
+    <string name="user_reported_successfully">उपयोगकर्ता सफलतापूर्वक रिपोर्ट किया गया</string>
+
+</resources>
