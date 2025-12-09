@@ -5,6 +5,7 @@ import cd.software.flowchat.IRCService
 import es.chat.R
 import cd.software.flowchat.model.Conversation
 
+// ya funciona correctamente
 class OperCommand(context: Context) : BaseCommand(context) {
     override val name = "oper"
     override val aliases = listOf("oper")

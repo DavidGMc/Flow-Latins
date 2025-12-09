@@ -160,6 +160,7 @@
     <string name="error_channel_full">Channel is full</string>
     <string name="error_invite_only">Channel is invite-only</string>
     <string name="error_banned">You are banned from this channel</string>
+    <string name="error_no_permission" translatable="false">You don\'t have permission to execute this command. Operator status (@) required.</string>
 
     <!-- Chat Screen Success Messages -->
     <string name="success_message_sent">Message sent</string>
@@ -596,4 +597,29 @@
     <string name="me_default_nick" translatable="false">Tú</string>
     <string name="me_success_sent" translatable="false">Acción enviada</string>
     <string name="me_error_send" translatable="false">Error al enviar acción: %1$s</string>
+
+    <!-- VoiceCommand -->
+    <string name="voice_command_description" translatable="false">Give voice to a user in the channel</string>
+    <string name="voice_command_usage" translatable="false">/voice &lt;nick&gt; or /voice #channel &lt;nick&gt;</string>
+    <string name="voice_error_no_nick" translatable="false">You must specify a nickname</string>
+    <string name="voice_error_no_channel" translatable="false">You must be in a channel or specify one</string>
+    <string name="voice_error_usage" translatable="false">Usage: %1$s</string>
+    <string name="voice_success" translatable="false">Voice given to %1$s in %2$s</string>
+    <string name="voice_error_general" translatable="false">Error giving voice: %1$s</string>
+    <!-- DevoiceCommand -->
+    <string name="devoice_command_description" translatable="false">Remove voice from a user in the channel</string>
+    <string name="devoice_command_usage" translatable="false">/devoice &lt;nick&gt; or /devoice #channel &lt;nick&gt;</string>
+    <string name="devoice_error_no_nick" translatable="false">You must specify a nickname</string>
+    <string name="devoice_error_no_channel" translatable="false">You must be in a channel or specify one</string>
+    <string name="devoice_error_usage" translatable="false">Usage: %1$s</string>
+    <string name="devoice_success" translatable="false">Voice removed from %1$s in %2$s</string>
+    <string name="devoice_error_general" translatable="false">Error removing voice: %1$s</string>
+    <!-- DeopCommand -->
+    <string name="deop_command_description" translatable="false">Remove operator status from a user</string>
+    <string name="deop_command_usage" translatable="false">/deop &lt;nick&gt; or /deop #channel &lt;nick&gt;</string>
+    <string name="deop_error_no_nick" translatable="false">You must specify a nickname</string>
+    <string name="deop_error_no_channel" translatable="false">You must be in a channel or specify one</string>
+    <string name="deop_error_usage" translatable="false">Usage: %1$s</string>
+    <string name="deop_success" translatable="false">Operator status removed from %1$s in %2$s</string>
+    <string name="deop_error_general" translatable="false">Error removing operator status: %1$s</string>
 </resources>

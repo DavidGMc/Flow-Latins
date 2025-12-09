@@ -8,7 +8,7 @@ import cd.software.flowchat.model.EventColorType
 import cd.software.flowchat.model.IRCMessage
 import cd.software.flowchat.model.MessageType
 
-
+// ya funciona correctamente.
 class NoticeCommand(context: Context) : BaseCommand(context) {
     override val name = "Notice"
     override val description = context.getString(R.string.notice_command_description)

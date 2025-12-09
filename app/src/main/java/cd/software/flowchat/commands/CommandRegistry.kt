@@ -31,6 +31,9 @@ object CommandRegistry {
             OperCommand(context),
             MeCommand(context),
             RawCommand(context),
+            VoiceCommand(context),
+            DevoiceCommand(context),
+            DeopCommand(context),
 
             // Aquí se pueden agregar más comandos en el futuro
         )

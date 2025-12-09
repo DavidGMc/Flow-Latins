@@ -323,6 +323,7 @@ class IRCCommandExecutor(
     /** Da operador a un usuario. */
     fun opUser(channel: String, nickname: String) {
         serviceScope.launch(Dispatchers.IO) {
+
             try {
                 connectionManager.bot?.sendIRC()?.mode(channel, "+o $nickname")
             } catch (e: Exception) {

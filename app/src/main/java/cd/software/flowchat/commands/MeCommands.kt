@@ -12,7 +12,7 @@ import cd.software.flowchat.model.IRCMessage
 import cd.software.flowchat.model.MessageType
 import es.chat.R
 
-
+// ya funciona correctamente
 /**
  * Comando para enviar acciones CTCP (/me).
  * Uso: /me está escribiendo código

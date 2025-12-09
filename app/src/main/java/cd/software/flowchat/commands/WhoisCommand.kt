@@ -5,6 +5,7 @@ import cd.software.flowchat.IRCService
 import es.chat.R
 import cd.software.flowchat.model.Conversation
 
+// ya funciona correctamente
 class WhoisCommand(context: Context) : BaseCommand(context) {
     override val name = "whois"
     override val aliases = listOf("w")

@@ -1,0 +1,15 @@
+// Agregar estos imports en CommandRegistry.kt después de los imports existentes:
+
+// No hay imports adicionales necesarios, VoiceCommand, DevoiceCommand y DeopCommand 
+// ya están en el mismo paquete
+
+// Agregar estos comandos en la lista de comandos (línea 33, después de RawCommand):
+
+            RawCommand(context),
+            
+            // Fase 1: Comandos de Moderación
+            VoiceCommand(context),
+            DevoiceCommand(context),
+            DeopCommand(context),
+
+            // Aquí se pueden agregar más comandos en el futuro

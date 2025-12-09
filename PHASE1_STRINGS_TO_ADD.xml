@@ -1,0 +1,26 @@
+\u003c!-- VoiceCommand --\u003e
+\u003cstring name=\"voice_command_description\"\u003eGive voice to a user in the channel\u003c/string\u003e
+\u003cstring name=\"voice_command_usage\"\u003e/voice \u0026lt;nick\u0026gt; or /voice #channel \u0026lt;nick\u0026gt;\u003c/string\u003e
+\u003cstring name=\"voice_error_no_nick\"\u003eYou must specify a nickname\u003c/string\u003e
+\u003cstring name=\"voice_error_no_channel\"\u003eYou must be in a channel or specify one\u003c/string\u003e
+\u003cstring name=\"voice_error_usage\"\u003eUsage: %1$s\u003c/string\u003e
+\u003cstring name=\"voice_success\"\u003eVoice given to %1$s in %2$s\u003c/string\u003e
+\u003cstring name=\"voice_error_general\"\u003eError giving voice: %1$s\u003c/string\u003e
+
+\u003c!-- DevoiceCommand --\u003e
+\u003cstring name=\"devoice_command_description\"\u003eRemove voice from a user in the channel\u003c/string\u003e
+\u003cstring name=\"devoice_command_usage\"\u003e/devoice \u0026lt;nick\u0026gt; or /devoice #channel \u0026lt;nick\u0026gt;\u003c/string\u003e
+\u003cstring name=\"devoice_error_no_nick\"\u003eYou must specify a nickname\u003c/string\u003e
+\u003cstring name=\"devoice_error_no_channel\"\u003eYou must be in a channel or specify one\u003c/string\u003e
+\u003cstring name=\"devoice_error_usage\"\u003eUsage: %1$s\u003c/string\u003e
+\u003cstring name=\"devoice_success\"\u003eVoice removed from %1$s in %2$s\u003c/string\u003e
+\u003cstring name=\"devoice_error_general\"\u003eError removing voice: %1$s\u003c/string\u003e
+
+\u003c!-- DeopCommand --\u003e
+\u003cstring name=\"deop_command_description\"\u003eRemove operator status from a user\u003c/string\u003e
+\u003cstring name=\"deop_command_usage\"\u003e/deop \u0026lt;nick\u0026gt; or /deop #channel \u0026lt;nick\u0026gt;\u003c/string\u003e
+\u003cstring name=\"deop_error_no_nick\"\u003eYou must specify a nickname\u003c/string\u003e
+\u003cstring name=\"deop_error_no_channel\"\u003eYou must be in a channel or specify one\u003c/string\u003e
+\u003cstring name=\"deop_error_usage\"\u003eUsage: %1$s\u003c/string\u003e
+\u003cstring name=\"deop_success\"\u003eOperator status removed from %1$s in %2$s\u003c/string\u003e
+\u003cstring name=\"deop_error_general\"\u003eError removing operator status: %1$s\u003c/string\u003e

@@ -38,6 +38,11 @@ class OpCommand(context: Context) : BaseCommand(context) {
                 conversation.name to args[0]
             }
 
+            // Validar permisos de operador
+            if (!PermissionValidator.hasOpPermission(service, channel)) {
+                return error(context.getString(R.string.error_no_permission))
+            }
+
             service.opUser(channel, nick)
             return success(context.getString(R.string.op_success_message, nick, channel))
         } catch (e: Exception) {

@@ -10,6 +10,7 @@ import cd.software.flowchat.model.Conversation
  * Comando para unirse a un canal IRC.
  * Uso: /join #canal [contraseña]
  */
+// ya funciona correctamente
 class JoinCommand(context: Context) : BaseCommand(context) {
     override val name = "join"
     override val aliases = listOf("j")

@@ -6,6 +6,8 @@ import cd.software.flowchat.IRCService
 import es.chat.R
 import cd.software.flowchat.model.Conversation
 
+//ya funciona correctamente
+
 /**
  * Comando para cambiar el nickname en IRC.
  * Uso: /nick nuevoNick
