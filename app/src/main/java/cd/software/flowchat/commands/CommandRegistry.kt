@@ -34,6 +34,11 @@ object CommandRegistry {
             VoiceCommand(context),
             DevoiceCommand(context),
             DeopCommand(context),
+            PartCommand(context),
+            KickCommand(context),
+            BanCommand(context),
+            UnbanCommand(context),
+            InviteCommand(context),
 
             // Aquí se pueden agregar más comandos en el futuro
         )

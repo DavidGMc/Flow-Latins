@@ -622,4 +622,50 @@
     <string name="deop_error_usage" translatable="false">Usage: %1$s</string>
     <string name="deop_success" translatable="false">Operator status removed from %1$s in %2$s</string>
     <string name="deop_error_general" translatable="false">Error removing operator status: %1$s</string>
+
+    <!-- PartCommand -->
+    <string name="part_command_description" translatable="false">Leave a channel</string>
+    <string name="part_command_usage" translatable="false">/part [#channel] [message]</string>
+    <string name="part_error_no_channel" translatable="false">You must be in a channel or specify one</string>
+    <string name="part_success" translatable="false">Leaving %1$s</string>
+    <string name="part_success_with_message" translatable="false">Leaving %1$s (%2$s)</string>
+    <string name="part_error_general" translatable="false">Error leaving channel: %1$s</string>
+
+    <!-- KickCommand -->
+    <string name="kick_command_description" translatable="false">Kick a user from the channel</string>
+    <string name="kick_command_usage" translatable="false">/kick &lt;nick&gt; [reason] or /kick #channel &lt;nick&gt; [reason]</string>
+    <string name="kick_error_no_nick" translatable="false">You must specify a nickname</string>
+    <string name="kick_error_no_channel" translatable="false">You must be in a channel or specify one</string>
+    <string name="kick_error_usage" translatable="false">Usage: %1$s</string>
+    <string name="kick_success" translatable="false">%1$s kicked from %2$s</string>
+    <string name="kick_success_with_reason" translatable="false">%1$s kicked from %2$s (Reason: %3$s)</string>
+    <string name="kick_error_general" translatable="false">Error kicking user: %1$s</string>
+
+    <!-- BanCommand -->
+    <string name="ban_command_description" translatable="false">Ban a user from the channel</string>
+    <string name="ban_command_usage" translatable="false">/ban &lt;nick|hostmask&gt; or /ban #channel &lt;hostmask&gt;</string>
+    <string name="ban_error_no_hostmask" translatable="false">You must specify a nickname or hostmask</string>
+    <string name="ban_error_no_channel" translatable="false">You must be in a channel or specify one</string>
+    <string name="ban_error_usage" translatable="false">Usage: %1$s</string>
+    <string name="ban_success" translatable="false">%1$s banned from %2$s</string>
+    <string name="ban_error_general" translatable="false">Error banning user: %1$s</string>
+
+    <!-- UnbanCommand -->
+    <string name="unban_command_description" translatable="false">Unban a user from the channel</string>
+    <string name="unban_command_usage" translatable="false">/unban &lt;nick|hostmask&gt; or /unban #channel &lt;hostmask&gt;</string>
+    <string name="unban_error_no_hostmask" translatable="false">You must specify a nickname or hostmask</string>
+    <string name="unban_error_no_channel" translatable="false">You must be in a channel or specify one</string>
+    <string name="unban_error_usage" translatable="false">Usage: %1$s</string>
+    <string name="unban_success" translatable="false">%1$s unbanned from %2$s</string>
+    <string name="unban_error_general" translatable="false">Error unbanning user: %1$s</string>
+
+    <!-- InviteCommand -->
+    <string name="invite_command_description" translatable="false">Invite a user to a channel</string>
+    <string name="invite_command_usage" translatable="false">/invite &lt;nick&gt; [#channel]</string>
+    <string name="invite_error_no_nick" translatable="false">You must specify a nickname</string>
+    <string name="invite_error_no_channel" translatable="false">You must be in a channel or specify one</string>
+    <string name="invite_error_invalid_channel" translatable="false">Channel name must start with #</string>
+    <string name="invite_error_usage" translatable="false">Usage: %1$s</string>
+    <string name="invite_success" translatable="false">%1$s invited to %2$s</string>
+    <string name="invite_error_general" translatable="false">Error inviting user: %1$s</string>
 </resources>

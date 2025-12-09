@@ -1,0 +1,16 @@
+// Agregar estos comandos en CommandRegistry.kt después de DeopCommand:
+
+            DeopCommand(context),
+            
+            // Fase 2: Comandos de Gestión de Canal
+            PartCommand(context),
+            KickCommand(context),
+            
+            // Fase 3: Sistema de Bans
+            BanCommand(context),
+            UnbanCommand(context),
+            
+            // Fase 4: Invitación
+            InviteCommand(context),
+
+            // Aquí se pueden agregar más comandos en el futuro
