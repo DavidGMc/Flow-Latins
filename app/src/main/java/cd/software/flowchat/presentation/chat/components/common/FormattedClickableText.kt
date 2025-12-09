@@ -18,42 +18,48 @@ fun FormattedClickableText(
         message: String,
         style: TextStyle,
         modifier: Modifier = Modifier,
+        isMentioned: Boolean = false,
         onClickUrl: (String) -> Unit
 ) {
-    val formatter = remember { IRCMessageFormatter() }
-    val urlRanges = remember(message) { message.extractUrls() }
+        val formatter = remember { IRCMessageFormatter() }
+        val urlRanges = remember(message) { message.extractUrls() }
 
-    // Primero aplicamos el formato IRC
-    val formattedText = formatter.formatMessage(message)
+        // Primero aplicamos el formato IRC
+        val formattedText = formatter.formatMessage(message)
 
-    // Luego añadimos las anotaciones de URLs
-    val annotatedText = buildAnnotatedString {
-        append(formattedText)
+        // Luego añadimos las anotaciones de URLs y el color de mención
+        val annotatedText = buildAnnotatedString {
+                append(formattedText)
 
-        urlRanges.forEach { (start, end) ->
-            val url = message.substring(start, end)
-            addStyle(
-                    style =
-                            SpanStyle(
-                                    color = Color.Blue,
-                                    textDecoration = TextDecoration.Underline
-                            ),
-                    start = start,
-                    end = end
-            )
-            addStringAnnotation("URL", url, start, end)
-        }
-    }
-
-    ClickableText(
-            text = annotatedText,
-            style = style,
-            modifier = modifier,
-            onClick = { offset ->
-                annotatedText.getStringAnnotations("URL", offset, offset).firstOrNull()?.let {
-                        annotation ->
-                    onClickUrl(annotation.item)
+                // Aplicar color rojo a todo el mensaje si es una mención
+                if (isMentioned) {
+                        addStyle(style = SpanStyle(color = Color.Red), start = 0, end = length)
                 }
-            }
-    )
+
+                urlRanges.forEach { (start, end) ->
+                        val url = message.substring(start, end)
+                        addStyle(
+                                style =
+                                        SpanStyle(
+                                                color = Color.Blue,
+                                                textDecoration = TextDecoration.Underline
+                                        ),
+                                start = start,
+                                end = end
+                        )
+                        addStringAnnotation("URL", url, start, end)
+                }
+        }
+
+        ClickableText(
+                text = annotatedText,
+                style = style,
+                modifier = modifier,
+                onClick = { offset ->
+                        annotatedText
+                                .getStringAnnotations("URL", offset, offset)
+                                .firstOrNull()
+                                ?.let { annotation -> onClickUrl(annotation.item) }
+                }
+        )
 }
