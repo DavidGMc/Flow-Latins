@@ -30,7 +30,7 @@ class IRCColorPreferences(
         chatPreferences.getBooleanPreference(KEY_USE_COLORS, true)
             .stateIn(
                 scope = CoroutineScope(Dispatchers.Default),
-                started = SharingStarted.WhileSubscribed(5000),
+                started = SharingStarted.Eagerly,
                 initialValue = true
             )
 
@@ -38,7 +38,7 @@ class IRCColorPreferences(
         chatPreferences.getIntPreference(KEY_DEFAULT_COLOR, 1)
             .stateIn(
                 scope = CoroutineScope(Dispatchers.Default),
-                started = SharingStarted.WhileSubscribed(5000),
+                started = SharingStarted.Eagerly,
                 initialValue = 1
             )
 
@@ -46,7 +46,7 @@ class IRCColorPreferences(
         chatPreferences.getIntPreference(KEY_BACKGROUND_COLOR, 0)
             .stateIn(
                 scope = CoroutineScope(Dispatchers.Default),
-                started = SharingStarted.WhileSubscribed(5000),
+                started = SharingStarted.Eagerly,
                 initialValue = 0
             )
 
