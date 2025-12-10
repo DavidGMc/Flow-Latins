@@ -33,6 +33,7 @@ import cd.software.flowchat.commands.CommandManager
 import cd.software.flowchat.commands.CommandRegistry
 import cd.software.flowchat.mircolors.IRCColorPreferences
 import cd.software.flowchat.mircolors.IRCColors
+import cd.software.flowchat.mircolors.IRCMessageComposer
 import cd.software.flowchat.mircolors.IRCMessageFormatter
 import cd.software.flowchat.model.ChannelUser
 
@@ -356,7 +357,7 @@ class IRCChatViewModel(
             val message = messageText ?: _messageInput.value.trim()
             if (message.isEmpty()) return@launch
 
-            // Usar la conversación local sincronizada (que mantiene el orden con Status primero)
+            // Usar la conversación local sincronizada
             val currentIndex = _currentConversationIndex.value
             val currentConversation = _conversations.value.getOrNull(currentIndex) ?: run {
                 Log.e("SendMessage", "No hay conversación activa en índice $currentIndex")
@@ -400,8 +401,25 @@ class IRCChatViewModel(
                 }
             }
 
-            // Enviar mensaje normal
-            ircService.sendMessage(currentConversation, message)
+            // Leer preferencias directamente
+            val useColors = ircColorPreferences.useColors.first()
+            val disableColorCodes = ircColorPreferences.getDisableColorCodes().first()
+
+            // Aplicar colores si está habilitado en preferencias
+            val finalMessage = if (useColors && !disableColorCodes) {
+                val defaultColor = ircColorPreferences.defaultColor.first()
+                val backgroundColor = ircColorPreferences.backgroundColor.first()
+
+                // Aplicar colores usando IRCMessageComposer
+                IRCMessageComposer()
+                    .addColoredText(message, defaultColor, backgroundColor)
+                    .build()
+            } else {
+                message
+            }
+
+            // Enviar mensaje normal o con colores
+            ircService.sendMessage(currentConversation, finalMessage)
         }
     }
 

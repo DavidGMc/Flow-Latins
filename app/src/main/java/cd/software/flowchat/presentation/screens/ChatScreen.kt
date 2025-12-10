@@ -800,6 +800,7 @@ fun OptimizedChatInputSection(
                     onMessageChange = onMessageChange,
                     onSendMessage = optimizedSendMessage,
                     users = users,
+                    chatViewModel = chatViewModel,
                     disableColorCodes = disableColorCodes, // Solo este parámetro necesario
                     modifier = Modifier.fillMaxWidth().padding(8.dp)
             )
@@ -1565,6 +1566,7 @@ fun ChatInput(
         onMessageChange: (String) -> Unit,
         onSendMessage: (String) -> Unit,
         users: List<String>,
+        chatViewModel: IRCChatViewModel,
         modifier: Modifier = Modifier,
         disableColorCodes: Boolean = false
 ) {
@@ -1630,6 +1632,17 @@ fun ChatInput(
     var textFieldValue by remember { mutableStateOf(TextFieldValue(message)) }
     var showNickSuggestions by remember { mutableStateOf(false) }
     var showFormatOptions by remember { mutableStateOf(false) }
+    
+    // Sincronizar botón con preferencias
+    val useColorsPreference by chatViewModel.ircColorPreferences.useColors.collectAsState()
+    var useColorsForMessage by remember { mutableStateOf(useColorsPreference) }
+    val coroutineScope = rememberCoroutineScope()
+    
+    // Actualizar botón cuando cambia la preferencia
+    LaunchedEffect(useColorsPreference) {
+        useColorsForMessage = useColorsPreference
+    }
+    
     val keyboardController = LocalSoftwareKeyboardController.current
     val scrollState = rememberScrollState()
 
@@ -1794,9 +1807,11 @@ fun ChatInput(
             val messageToSend = textFieldValue.text
             textFieldValue = TextFieldValue("")
             onMessageChange("")
-            onSendMessage(messageToSend)
+            // Llamar sin applyColors - el ViewModel lee las preferencias directamente
+            chatViewModel.sendMessage(messageToSend)
             showNickSuggestions = false
             showFormatOptions = false
+            // NO resetear useColorsForMessage - se mantiene según preferencias
         }
     }
 
@@ -2054,6 +2069,21 @@ fun ChatInput(
                                     showFormatOptions = !showFormatOptions
                                     showNickSuggestions =
                                             false // Cerrar sugerencias si estaban abiertas
+                                },
+                                modifier = Modifier.size(buttonSize)
+                        )
+                        
+                        // Botón para activar/desactivar colores
+                        InputActionButton(
+                                icon = painterResource(R.drawable.ic_paleta_colors),
+                                contentDescription = "Aplicar colores",
+                                isActive = useColorsForMessage,
+                                onClick = {
+                                    useColorsForMessage = !useColorsForMessage
+                                    // Actualizar preferencias
+                                    coroutineScope.launch {
+                                        chatViewModel.ircColorPreferences.setUseColors(useColorsForMessage)
+                                    }
                                 },
                                 modifier = Modifier.size(buttonSize)
                         )

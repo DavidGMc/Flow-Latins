@@ -42,6 +42,14 @@ class IRCColorPreferences(
                 initialValue = 1
             )
 
+    val backgroundColor: StateFlow<Int> =
+        chatPreferences.getIntPreference(KEY_BACKGROUND_COLOR, 0)
+            .stateIn(
+                scope = CoroutineScope(Dispatchers.Default),
+                started = SharingStarted.WhileSubscribed(5000),
+                initialValue = 0
+            )
+
     /**
      * Obtiene o establece si se deben mostrar los colores en los mensajes
      */

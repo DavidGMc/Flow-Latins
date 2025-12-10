@@ -71,6 +71,7 @@ fun OptimizedChatInputSection(
                 onMessageChange = onMessageChange,
                 onSendMessage = optimizedSendMessage,
                 users = users,
+                chatViewModel = chatViewModel,
                 disableColorCodes = disableColorCodes,
                 modifier = Modifier
                     .fillMaxWidth()
