@@ -42,6 +42,20 @@ class IRCConnectionManager(
     var bot: PircBotX? = null
         private set
 
+    // Keep-Alive Manager para mantener la conexión activa
+    private val keepAliveManager = KeepAliveManager(serviceScope) { line ->
+        sendRawLine(line)
+    }
+
+    // Auto-Reconnect Manager para reconexión automática
+    private val autoReconnectManager = AutoReconnectManager(
+        scope = serviceScope,
+        onReconnect = { info -> connect(info) },
+        isConnected = { isConnected() }
+    )
+
+    private var lastConnectionInfo: IRCConnectionInfo? = null
+
     /** Configura el contexto de la aplicación. */
     fun setApplicationContext(context: Context) {
         this.applicationContext = context.applicationContext
@@ -56,6 +70,13 @@ class IRCConnectionManager(
     /** Conecta al servidor IRC. */
     suspend fun connect(connectionInfo: IRCConnectionInfo) {
         val context = applicationContext ?: return
+
+        // Guardar información de conexión para reconexión automática
+        lastConnectionInfo = connectionInfo
+        autoReconnectManager.saveConnectionInfo(connectionInfo)
+        
+        // Reiniciar contador de intentos de reconexión
+        autoReconnectManager.reset()
 
         _syncState.value = context.getString(R.string.sync_state_starting)
         _connectionState.value = ConnectionState.Connecting
@@ -114,6 +135,10 @@ class IRCConnectionManager(
 
     /** Desconecta del servidor IRC. */
     suspend fun disconnect() {
+        // Detener keep-alive y reconexión automática antes de desconectar
+        keepAliveManager.stop()
+        autoReconnectManager.stop()
+        
         serviceScope.launch {
             try {
                 bot?.stopBotReconnect()
@@ -152,6 +177,10 @@ class IRCConnectionManager(
                 _connectionState.value = ConnectionState.Connected
                 _syncState.value = "ACTIVE"
                 updateConnectionState(ConnectionState.Connected)
+                
+                // Iniciar keep-alive cuando se conecta
+                keepAliveManager.start()
+                Log.d("IRCConnectionManager", "Keep-alive iniciado")
             }
             is ConnectionStateUpdate.Connecting -> {
                 _connectionState.value = ConnectionState.Connecting
@@ -162,12 +191,32 @@ class IRCConnectionManager(
                 _connectionState.value = ConnectionState.Disconnected
                 _syncState.value = "DISCONNECTED"
                 updateConnectionState(ConnectionState.Disconnected)
+                
+                // Detener keep-alive cuando se desconecta
+                keepAliveManager.stop()
+                Log.d("IRCConnectionManager", "Keep-alive detenido")
+                
+                // Iniciar reconexión automática si fue desconexión inesperada
+                // (no iniciada por el usuario)
+                if (lastConnectionInfo != null && !autoReconnectManager.isReconnecting()) {
+                    Log.d("IRCConnectionManager", "Desconexión inesperada detectada, iniciando reconexión automática")
+                    autoReconnectManager.startReconnecting()
+                }
             }
             is ConnectionStateUpdate.Error -> {
                 val errorState = ConnectionState.Error(update.message)
                 _connectionState.value = errorState
                 _syncState.value = "ERROR"
                 updateConnectionState(errorState)
+                
+                // Detener keep-alive en caso de error
+                keepAliveManager.stop()
+                
+                // Iniciar reconexión automática en caso de error
+                if (lastConnectionInfo != null && !autoReconnectManager.isReconnecting()) {
+                    Log.d("IRCConnectionManager", "Error de conexión detectado, iniciando reconexión automática")
+                    autoReconnectManager.startReconnecting()
+                }
             }
         }
     }
