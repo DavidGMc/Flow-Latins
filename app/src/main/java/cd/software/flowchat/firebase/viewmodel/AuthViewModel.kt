@@ -31,7 +31,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-    private val profileRepository: ProfileRepository
+    private val profileRepository: ProfileRepository,
+    private val ircService: cd.software.flowchat.IRCService
 ) : ViewModel() {
 
     private val _authState = MutableStateFlow<AuthState>(AuthState.Initial)
@@ -168,6 +169,18 @@ class AuthViewModel @Inject constructor(
                 onSuccess = {
                     _authState.value = AuthState.Success
                     _profileState.value = ProfileState.Success(profileWithImage)
+                    
+                    // Registrar automáticamente en el servidor IRC con NickServ
+                    // Solo si el usuario está conectado al servidor IRC
+                    if (ircService.isConnected()) {
+                        try {
+                            // Enviar comando REGISTER a NickServ con la contraseña y email
+                            ircService.sendNickServCommand("REGISTER $password $email")
+                        } catch (e: Exception) {
+                            // Si falla el registro en IRC, no afecta el registro en Firebase
+                            // que ya fue exitoso
+                        }
+                    }
                 },
                 onFailure = { e ->
                     _authState.value = AuthState.Error(e.message ?: "Error creating profile")

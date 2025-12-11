@@ -43,12 +43,15 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
 
     private var showBackgroundPermissionDialog by mutableStateOf(false)
-    private val ircService by lazy { IRCService(chatPreferences) }
+    
+    @Inject
+    lateinit var ircService: IRCService
+    
+    @Inject
+    lateinit var chatPreferences: ChatPreferences
+    
     private val preferenceManager by lazy {
         ServerPreferenceManager(applicationContext)
-    }
-    private val chatPreferences by lazy {
-        ChatPreferences(applicationContext)
     }
     private val adConsentManager by lazy { AdConsentManager(this) }
 
@@ -66,6 +69,7 @@ class MainActivity : ComponentActivity() {
         FirebaseProfileRepository(Firebase.firestore,Firebase.storage)
     }
     private val adViewModel: AdViewModel by viewModels()
+    private val authViewModel: AuthViewModel by viewModels()
 
     @Inject
     lateinit var fcmViewModel: FcmViewModel
@@ -77,12 +81,7 @@ class MainActivity : ComponentActivity() {
     private val chatViewModel by lazy {
         IRCChatViewModel(ircService, NotificationService(applicationContext),chatPreferences, context = applicationContext)
     }
-    private val authViewModel by lazy {
-        AuthViewModel(
-            authRepository = authRepository,
-            profileRepository = profileRepository
-        )
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
