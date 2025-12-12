@@ -162,6 +162,7 @@ import cd.software.flowchat.presentation.chat.components.common.FloatingScrollBu
 import cd.software.flowchat.presentation.chat.components.common.FormattedClickableText
 import cd.software.flowchat.presentation.chat.components.format.SimpleFormatOptionsDropdown
 import cd.software.flowchat.presentation.chat.components.input.InputActionButton
+import cd.software.flowchat.presentation.chat.components.input.EmojiPickerButton
 import cd.software.flowchat.presentation.chat.components.message.UrlPreviewCard
 import cd.software.flowchat.presentation.chat.utils.copyToClipboard
 import cd.software.flowchat.presentation.chat.utils.extractUrls
@@ -1983,6 +1984,26 @@ fun ChatInput(
                             isActive = showNickSuggestions,
                             onClick = { toggleNickSuggestions() },
                             modifier = Modifier.size(buttonSize)
+                    )
+                    
+                    // Botón de emoji picker
+                    EmojiPickerButton(
+                        onEmojiSelected = { emoji ->
+                            // Insertar emoji en la posición del cursor
+                            val currentText = textFieldValue.text
+                            val selection = textFieldValue.selection
+                            val newText = currentText.substring(0, selection.start) + 
+                                         emoji + 
+                                         currentText.substring(selection.end)
+                            val newSelection = selection.start + emoji.length
+                            
+                            textFieldValue = TextFieldValue(
+                                text = newText,
+                                selection = TextRange(newSelection)
+                            )
+                            onMessageChange(newText)
+                        },
+                        modifier = Modifier.size(buttonSize)
                     )
 
                     // Campo de texto

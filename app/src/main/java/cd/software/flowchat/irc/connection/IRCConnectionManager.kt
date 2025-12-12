@@ -47,13 +47,6 @@ class IRCConnectionManager(
         sendRawLine(line)
     }
 
-    // Auto-Reconnect Manager para reconexión automática
-    private val autoReconnectManager = AutoReconnectManager(
-        scope = serviceScope,
-        onReconnect = { info -> connect(info) },
-        isConnected = { isConnected() }
-    )
-
     private var lastConnectionInfo: IRCConnectionInfo? = null
 
     /** Configura el contexto de la aplicación. */
@@ -71,12 +64,8 @@ class IRCConnectionManager(
     suspend fun connect(connectionInfo: IRCConnectionInfo) {
         val context = applicationContext ?: return
 
-        // Guardar información de conexión para reconexión automática
+        // Guardar información de conexión para uso futuro
         lastConnectionInfo = connectionInfo
-        autoReconnectManager.saveConnectionInfo(connectionInfo)
-        
-        // Reiniciar contador de intentos de reconexión
-        autoReconnectManager.reset()
 
         _syncState.value = context.getString(R.string.sync_state_starting)
         _connectionState.value = ConnectionState.Connecting
@@ -135,9 +124,8 @@ class IRCConnectionManager(
 
     /** Desconecta del servidor IRC. */
     suspend fun disconnect() {
-        // Detener keep-alive y reconexión automática antes de desconectar
+        // Detener keep-alive antes de desconectar
         keepAliveManager.stop()
-        autoReconnectManager.stop()
         
         serviceScope.launch {
             try {
@@ -195,13 +183,6 @@ class IRCConnectionManager(
                 // Detener keep-alive cuando se desconecta
                 keepAliveManager.stop()
                 Log.d("IRCConnectionManager", "Keep-alive detenido")
-                
-                // Iniciar reconexión automática si fue desconexión inesperada
-                // (no iniciada por el usuario)
-                if (lastConnectionInfo != null && !autoReconnectManager.isReconnecting()) {
-                    Log.d("IRCConnectionManager", "Desconexión inesperada detectada, iniciando reconexión automática")
-                    autoReconnectManager.startReconnecting()
-                }
             }
             is ConnectionStateUpdate.Error -> {
                 val errorState = ConnectionState.Error(update.message)
@@ -211,12 +192,6 @@ class IRCConnectionManager(
                 
                 // Detener keep-alive en caso de error
                 keepAliveManager.stop()
-                
-                // Iniciar reconexión automática en caso de error
-                if (lastConnectionInfo != null && !autoReconnectManager.isReconnecting()) {
-                    Log.d("IRCConnectionManager", "Error de conexión detectado, iniciando reconexión automática")
-                    autoReconnectManager.startReconnecting()
-                }
             }
         }
     }

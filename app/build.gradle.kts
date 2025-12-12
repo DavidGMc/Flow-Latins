@@ -91,6 +91,12 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.google.ads)
     implementation(libs.ump.user.messaging.platform)
+    
+    // WorkManager
+    implementation(libs.work.runtime.ktx)
+    
+    // Emoji2 EmojiPicker
+    implementation(libs.emoji2.emojipicker)
 
 
     testImplementation(libs.junit)

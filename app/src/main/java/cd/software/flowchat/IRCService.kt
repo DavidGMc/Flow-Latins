@@ -1,9 +1,11 @@
 package cd.software.flowchat
 
 import android.content.Context
+import android.util.Log
 import cd.software.flowchat.irc.commands.IRCCommandExecutor
 import cd.software.flowchat.irc.config.IRCConfigurationBuilder
 import cd.software.flowchat.irc.connection.IRCConnectionManager
+import cd.software.flowchat.irc.connection.NetworkMonitor
 import cd.software.flowchat.irc.conversation.ConversationManager
 import cd.software.flowchat.irc.events.IRCEventHandler
 import cd.software.flowchat.irc.message.IRCMessageHandler
@@ -63,8 +65,10 @@ class IRCService(private val chatPreferences: ChatPreferences) {
     private lateinit var configBuilder: IRCConfigurationBuilder
     private lateinit var connectionManager: IRCConnectionManager
     private lateinit var commandExecutor: IRCCommandExecutor
+    private lateinit var networkMonitor: NetworkMonitor
 
     private var isInitialized = false
+    private var lastConnectionInfo: cd.software.flowchat.model.IRCConnectionInfo? = null
 
     /** Inicializa los componentes que requieren contexto. */
     private fun initializeComponents(context: Context) {
@@ -103,6 +107,23 @@ class IRCService(private val chatPreferences: ChatPreferences) {
                         serviceScope = serviceScope
                 )
 
+        // Inicializar NetworkMonitor
+        networkMonitor = NetworkMonitor(
+            context = context,
+            onNetworkAvailable = {
+                Log.d("IRCService", "Red disponible - ${networkMonitor.getCurrentNetworkInfo()}")
+                // Solo registrar, no reconectar automáticamente
+            },
+            onNetworkLost = {
+                Log.d("IRCService", "Red perdida")
+                // Solo registrar, no hacer nada automáticamente
+            },
+            onNetworkChanged = {
+                Log.d("IRCService", "Cambio de red detectado: ${networkMonitor.getCurrentNetworkInfo()}")
+                // Solo registrar, el usuario deberá reconectar manualmente si es necesario
+            }
+        )
+
         isInitialized = true
     }
 
@@ -132,17 +153,37 @@ class IRCService(private val chatPreferences: ChatPreferences) {
     fun setApplicationContext(context: Context) {
         initializeComponents(context)
         connectionManager.setApplicationContext(context)
+        // Iniciar monitoreo de red
+        networkMonitor.startMonitoring()
     }
 
     // ========== API Pública - Conexión ==========
 
     fun connect(connectionInfo: IRCConnectionInfo) {
         resetServiceScope()
+        // Guardar información de conexión para reconexión en cambios de red
+        lastConnectionInfo = connectionInfo
         serviceScope.launch { connectionManager.connect(connectionInfo) }
     }
 
     fun disconnect() {
-        serviceScope.launch { connectionManager.disconnect() }
+        serviceScope.launch { 
+            connectionManager.disconnect()
+            // Limpiar información de conexión al desconectar manualmente
+            // Esto evita que AutoReconnect intente reconectar
+            lastConnectionInfo = null
+        }
+    }
+    
+    /**
+     * Desconecta sin limpiar la información de conexión.
+     * Usado internamente para cambios de red.
+     */
+    private fun disconnectWithoutClearing() {
+        serviceScope.launch { 
+            connectionManager.disconnect()
+            // NO limpiar lastConnectionInfo para permitir reconexión
+        }
     }
 
     fun reconnectIfNeeded(connectionInfo: IRCConnectionInfo) {

@@ -29,6 +29,8 @@ play-services-ads = "22.6.0"
 user-messaging-platform = "2.1.0"
 hilt-navigation-compose = "1.0.0"
 compose = "1.7.8"
+work = "2.9.0"
+emoji2 = "1.4.0"
 
 
 
@@ -78,6 +80,12 @@ firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-fires
 
 google-ads = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "admob" }
 ump-user-messaging-platform = { module = "com.google.android.ump:user-messaging-platform", version.ref = "user-messaging-platform" }
+
+# WorkManager
+work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "work" }
+
+# Emoji2 EmojiPicker
+emoji2-emojipicker = { group = "androidx.emoji2", name = "emoji2-emojipicker", version.ref = "emoji2" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
