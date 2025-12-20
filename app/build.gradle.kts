@@ -97,6 +97,9 @@ dependencies {
     
     // Emoji2 EmojiPicker
     implementation(libs.emoji2.emojipicker)
+    
+    // YouTube Player
+    implementation(libs.youtube.player)
 
 
     testImplementation(libs.junit)

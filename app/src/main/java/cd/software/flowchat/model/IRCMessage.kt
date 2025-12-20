@@ -13,5 +13,6 @@ data class IRCMessage(
     val additionalInfo: Map<String, String?> = emptyMap(),
     val eventColor: Long? = null,
     val eventColorType: EventColorType = EventColorType.TEXT,
-    val isRead: Boolean = false
+    val isRead: Boolean = false,
+    val youtubeVideoId: String? = null  // ID del video de YouTube si el mensaje contiene uno
 )

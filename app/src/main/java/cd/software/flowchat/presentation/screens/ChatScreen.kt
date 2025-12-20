@@ -4,6 +4,7 @@ package cd.software.flowchat.presentation
 // Componentes de entrada
 // Componentes de mensaje
 // Utilidades
+import cd.software.flowchat.presentation.chat.components.message.YouTubePlayerCard
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ActivityNotFoundException
@@ -163,9 +164,12 @@ import cd.software.flowchat.presentation.chat.components.common.FormattedClickab
 import cd.software.flowchat.presentation.chat.components.format.SimpleFormatOptionsDropdown
 import cd.software.flowchat.presentation.chat.components.input.InputActionButton
 import cd.software.flowchat.presentation.chat.components.input.EmojiPickerButton
+import cd.software.flowchat.presentation.chat.components.input.EmojiPickerPanel
 import cd.software.flowchat.presentation.chat.components.message.UrlPreviewCard
+
 import cd.software.flowchat.presentation.chat.utils.copyToClipboard
 import cd.software.flowchat.presentation.chat.utils.extractUrls
+import cd.software.flowchat.presentation.chat.utils.extractYouTubeVideoId
 import cd.software.flowchat.presentation.chat.utils.formatTimestamp
 import cd.software.flowchat.utils.ChatTypography
 import cd.software.flowchat.utils.findActivity
@@ -455,21 +459,26 @@ fun ChatScreen(
                 TopAppBar(
                         title = { Text(stringResource(R.string.chat_title)) },
                         actions = {
-                            // Indicador de estado de conexión
-                            when (connectionState) {
-                                ConnectionState.Connecting ->
-                                        CircularProgressIndicator(
-                                                color = MaterialTheme.colorScheme.primary,
-                                                modifier = Modifier.size(24.dp)
-                                        )
-                                ConnectionState.Connected ->
-                                        Icon(
-                                                imageVector = Icons.Default.CheckCircle,
-                                                contentDescription =
-                                                        stringResource(R.string.connected_status),
-                                                tint = MaterialTheme.colorScheme.secondary
-                                        )
-                                else -> {}
+                            // Botón para activar/desactivar colores IRC
+                            if (!disableColorCodes) {
+                                val useColorsPreference by chatViewModel.ircColorPreferences.useColors.collectAsState()
+                                val coroutineScope = rememberCoroutineScope()
+                                
+                                IconButton(
+                                    onClick = {
+                                        coroutineScope.launch {
+                                            chatViewModel.ircColorPreferences.setUseColors(!useColorsPreference)
+                                        }
+                                    }
+                                ) {
+                                    Icon(
+                                        painter = painterResource(R.drawable.ic_paleta_colors),
+                                        contentDescription = if (useColorsPreference) "Desactivar colores" else "Activar colores",
+                                        tint = if (useColorsPreference) 
+                                                MaterialTheme.colorScheme.primary 
+                                               else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                                    )
+                                }
                             }
 
                             // Acciones de la barra superior
@@ -773,6 +782,7 @@ fun OptimizedChatInputSection(
         modifier: Modifier = Modifier
 ) {
     var isSending by remember { mutableStateOf(false) }
+    var showEmojiPicker by remember { mutableStateOf(false) }
     val disableColorCodes by chatViewModel.getDisableColorCodes().collectAsState()
 
     LaunchedEffect(isSending) {
@@ -790,7 +800,7 @@ fun OptimizedChatInputSection(
         }
     }
 
-    Box(modifier = modifier.fillMaxWidth()) {
+    Column(modifier = modifier.fillMaxWidth()) {
         Surface(
                 modifier = Modifier.fillMaxWidth(),
                 color = MaterialTheme.colorScheme.surface,
@@ -803,9 +813,25 @@ fun OptimizedChatInputSection(
                     users = users,
                     chatViewModel = chatViewModel,
                     disableColorCodes = disableColorCodes, // Solo este parámetro necesario
+                    showEmojiPicker = showEmojiPicker,
+                    onToggleEmojiPicker = { showEmojiPicker = !showEmojiPicker },
                     modifier = Modifier.fillMaxWidth().padding(8.dp)
             )
         }
+        
+        // Panel de emoji picker debajo del input
+        val onEmojiSelected = remember(messageInput) {
+            { emoji: String ->
+                onMessageChange(messageInput + emoji)
+            }
+        }
+        
+        EmojiPickerPanel(
+            visible = showEmojiPicker,
+            onEmojiSelected = onEmojiSelected,
+            onClose = { showEmojiPicker = false },
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
 
@@ -1237,6 +1263,20 @@ fun MessageItem(
                                 }
                             }
                     )
+                    
+                    // Detectar y mostrar YouTube player si hay un video
+                    val youtubeVideoId = remember(message.content) {
+                        message.youtubeVideoId ?: message.content.extractYouTubeVideoId()
+                    }
+                    
+                    youtubeVideoId?.let { videoId ->
+                        Spacer(modifier = Modifier.height(8.dp))
+                        YouTubePlayerCard(
+                            videoId = videoId,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
+                    
                     if (urls.isNotEmpty()) {
                         Spacer(modifier = Modifier.height(8.dp))
                         Divider(
@@ -1569,7 +1609,9 @@ fun ChatInput(
         users: List<String>,
         chatViewModel: IRCChatViewModel,
         modifier: Modifier = Modifier,
-        disableColorCodes: Boolean = false
+        disableColorCodes: Boolean = false,
+        showEmojiPicker: Boolean = false,
+        onToggleEmojiPicker: () -> Unit = {}
 ) {
     // Screen size detection
     val configuration = LocalConfiguration.current
@@ -2003,6 +2045,8 @@ fun ChatInput(
                             )
                             onMessageChange(newText)
                         },
+                        isExpanded = showEmojiPicker,
+                        onToggle = onToggleEmojiPicker,
                         modifier = Modifier.size(buttonSize)
                     )
 
@@ -2090,21 +2134,6 @@ fun ChatInput(
                                     showFormatOptions = !showFormatOptions
                                     showNickSuggestions =
                                             false // Cerrar sugerencias si estaban abiertas
-                                },
-                                modifier = Modifier.size(buttonSize)
-                        )
-                        
-                        // Botón para activar/desactivar colores
-                        InputActionButton(
-                                icon = painterResource(R.drawable.ic_paleta_colors),
-                                contentDescription = "Aplicar colores",
-                                isActive = useColorsForMessage,
-                                onClick = {
-                                    useColorsForMessage = !useColorsForMessage
-                                    // Actualizar preferencias
-                                    coroutineScope.launch {
-                                        chatViewModel.ircColorPreferences.setUseColors(useColorsForMessage)
-                                    }
                                 },
                                 modifier = Modifier.size(buttonSize)
                         )

@@ -7,6 +7,7 @@ import cd.software.flowchat.model.IRCMessage
 import cd.software.flowchat.model.MessageEventType
 import cd.software.flowchat.model.MessageType
 import cd.software.flowchat.preferences.ChatPreferences
+import cd.software.flowchat.presentation.chat.utils.extractYouTubeVideoId
 import es.chat.R
 import kotlinx.coroutines.flow.first
 import org.pircbotx.hooks.events.ActionEvent
@@ -35,6 +36,9 @@ class IRCMessageHandler(
         }
 
         val isMentioned = checkForMention(messageContent, currentNick)
+        
+        // Detectar si el mensaje contiene un link de YouTube
+        val youtubeVideoId = messageContent.extractYouTubeVideoId()
 
         return IRCMessage(
                 sender = username,
@@ -43,7 +47,8 @@ class IRCMessageHandler(
                 type = MessageType.TEXT,
                 isOwnMessage = false,
                 isMentioned = isMentioned,
-                channelName = channelName
+                channelName = channelName,
+                youtubeVideoId = youtubeVideoId
         )
     }
 
@@ -72,6 +77,9 @@ class IRCMessageHandler(
         }
 
         val isMentioned = checkForMention(messageContent, currentNick)
+        
+        // Detectar si el mensaje contiene un link de YouTube
+        val youtubeVideoId = messageContent.extractYouTubeVideoId()
 
         return IRCMessage(
                 sender = username,
@@ -80,7 +88,8 @@ class IRCMessageHandler(
                 type = MessageType.TEXT,
                 isOwnMessage = false,
                 isMentioned = isMentioned,
-                channelName = username
+                channelName = username,
+                youtubeVideoId = youtubeVideoId
         )
     }
 

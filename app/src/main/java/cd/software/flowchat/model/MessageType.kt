@@ -6,5 +6,6 @@ enum class MessageType {
     PART,
     QUIT,
     NOTICE,
-    ACTION
+    ACTION,
+    YOUTUBE  // Mensajes con contenido de YouTube
 }
