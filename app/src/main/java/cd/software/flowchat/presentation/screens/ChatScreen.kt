@@ -5,6 +5,7 @@ package cd.software.flowchat.presentation
 // Componentes de mensaje
 // Utilidades
 import cd.software.flowchat.presentation.chat.components.message.YouTubePlayerCard
+import cd.software.flowchat.presentation.chat.components.message.ImagePreviewCard
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ActivityNotFoundException
@@ -168,7 +169,9 @@ import cd.software.flowchat.presentation.chat.components.input.EmojiPickerPanel
 import cd.software.flowchat.presentation.chat.components.message.UrlPreviewCard
 
 import cd.software.flowchat.presentation.chat.utils.copyToClipboard
+import cd.software.flowchat.presentation.chat.utils.extractAndClassifyLinks
 import cd.software.flowchat.presentation.chat.utils.extractUrls
+import cd.software.flowchat.presentation.chat.utils.extractImageUrls
 import cd.software.flowchat.presentation.chat.utils.extractYouTubeVideoId
 import cd.software.flowchat.presentation.chat.utils.formatTimestamp
 import cd.software.flowchat.utils.ChatTypography
@@ -1045,29 +1048,29 @@ fun ConversationContent(
 @OptIn(ExperimentalLayoutApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun MessageItem(
-        message: IRCMessage,
-        isOwnMessage: Boolean,
-        onNickClick: (String) -> Unit = {},
-        onOpenPrivateChat: (String) -> Unit = {},
-        chatViewModel: IRCChatViewModel,
-        authViewModel: AuthViewModel,
-        adViewModel: AdViewModel,
-        context: Context,
-        navController: NavController,
-        pagerState: PagerState,
-        fontSize: Int,
-        conversations: List<Conversation>
+    message: IRCMessage,
+    isOwnMessage: Boolean,
+    onNickClick: (String) -> Unit = {},
+    onOpenPrivateChat: (String) -> Unit = {},
+    chatViewModel: IRCChatViewModel,
+    authViewModel: AuthViewModel,
+    adViewModel: AdViewModel,
+    context: Context,
+    navController: NavController,
+    pagerState: PagerState,
+    fontSize: Int,
+    conversations: List<Conversation>
 ) {
     var isMenuExpanded by remember { mutableStateOf(false) }
     var showNickMenu by remember { mutableStateOf(false) }
     var nickMenuAnchor by remember { mutableStateOf<Offset?>(null) }
     // Aplicar fondo rojo si el mensaje menciona al usuario
     val eventBackgroundColor =
-            if (message.isMentioned) {
-                Color.Red.copy(alpha = 0.15f)
-            } else {
-                message.eventColorType.getColor().copy(alpha = 0.1f)
-            }
+        if (message.isMentioned) {
+            Color.Red.copy(alpha = 0.15f)
+        } else {
+            message.eventColorType.getColor().copy(alpha = 0.1f)
+        }
     val isPremiumUser = authViewModel.isPremiumUser()
     var showAuthDialog by remember { mutableStateOf(false) }
     var premiumFeatureRequested by remember { mutableStateOf<() -> Unit>({}) }
@@ -1077,48 +1080,83 @@ fun MessageItem(
     val snackbarHostState = remember { SnackbarHostState() }
     var showReportDialog by remember { mutableStateOf(false) }
     var reportReason by remember { mutableStateOf("") }
+
     val filteredContent = chatViewModel.contentFilter.filterText(message.content)
-    val urlRanges = remember(filteredContent) { filteredContent.extractUrls() }
-    val urls =
-            remember(filteredContent, urlRanges) {
-                urlRanges.map { (start, end) -> filteredContent.substring(start, end) }
-            }
-    val formatter = remember { IRCMessageFormatter() }
-    val formattedContent = remember(message.content) { formatter.formatMessage(message.content) }
+
+    // =================== CAMBIO IMPORTANTE: Extracción unificada de enlaces ===================
+    // Usar extractAndClassifyLinks() para obtener TODOS los enlaces clasificados
+    val classifiedLinks = remember(message.content) {
+        message.content.extractAndClassifyLinks()
+    }
+
+    // Obtener las URLs clasificadas por tipo
+    val youtubeUrls = classifiedLinks["youtube"] ?: emptyList()
+    val imageUrls = classifiedLinks["images"] ?: emptyList()
+    val regularUrls = classifiedLinks["links"] ?: emptyList()
+
+    // Obtener el ID del primer video de YouTube (si hay)
+    val firstYoutubeVideoId = remember(youtubeUrls) {
+        youtubeUrls.firstOrNull()?.extractYouTubeVideoId()
+    }
+
+    // Crear una lista de TODAS las URLs que vamos a mostrar como cards
+    // (para no mostrarlas también como texto subrayado)
+    val allUrlsToShowAsCards = remember(youtubeUrls, imageUrls, regularUrls) {
+        (youtubeUrls + imageUrls + regularUrls).toSet()
+    }
+
+    // Crear el texto del mensaje SIN las URLs que mostraremos como cards
+    val messageTextWithoutCardUrls = remember(message.content, allUrlsToShowAsCards) {
+        var text = message.content
+        // Eliminar cada URL que mostraremos como card
+        allUrlsToShowAsCards.forEach { url ->
+            text = text.replace(url, "")
+        }
+        // Limpiar espacios extra
+        text.trim().replace(Regex("\\s+"), " ")
+    }
+
+    // Mantener compatibilidad con el sistema de extracción antiguo para el texto clickeable
+    // pero solo para URLs que NO estamos mostrando como cards
+    val urlRanges = remember(messageTextWithoutCardUrls) {
+        messageTextWithoutCardUrls.extractUrls()
+    }
 
     val annotatedText =
-            remember(filteredContent, urlRanges) {
-                buildAnnotatedString {
-                    append(filteredContent)
-                    urlRanges.forEach { (start, end) ->
-                        val url = filteredContent.substring(start, end)
-                        addStyle(
-                                style =
-                                        SpanStyle(
-                                                color = Color.Blue,
-                                                textDecoration = TextDecoration.Underline
-                                        ),
-                                start = start,
-                                end = end
-                        )
-                        addStringAnnotation("URL", url, start, end)
-                    }
+        remember(messageTextWithoutCardUrls, urlRanges) {
+            buildAnnotatedString {
+                append(messageTextWithoutCardUrls)
+                urlRanges.forEach { (start, end) ->
+                    val url = messageTextWithoutCardUrls.substring(start, end)
+                    addStyle(
+                        style =
+                            SpanStyle(
+                                color = Color.Blue,
+                                textDecoration = TextDecoration.Underline
+                            ),
+                        start = start,
+                        end = end
+                    )
+                    addStringAnnotation("URL", url, start, end)
                 }
             }
+        }
+    // =================== FIN DEL CAMBIO IMPORTANTE ===================
+
     val nickColors =
-            listOf(
-                    Color(0xFF3498DB),
-                    Color(0xFFE74C3C),
-                    Color(0xFF2ECC71),
-                    Color(0xFFF39C12),
-                    Color(0xFF9B59B6),
-                    Color(0xFF1ABC9C),
-                    Color(0xFFE67E22),
-                    Color(0xFF34495E),
-                    MaterialTheme.colorScheme.primary,
-                    MaterialTheme.colorScheme.tertiary,
-                    MaterialTheme.colorScheme.secondary
-            )
+        listOf(
+            Color(0xFF3498DB),
+            Color(0xFFE74C3C),
+            Color(0xFF2ECC71),
+            Color(0xFFF39C12),
+            Color(0xFF9B59B6),
+            Color(0xFF1ABC9C),
+            Color(0xFFE67E22),
+            Color(0xFF34495E),
+            MaterialTheme.colorScheme.primary,
+            MaterialTheme.colorScheme.tertiary,
+            MaterialTheme.colorScheme.secondary
+        )
     val nickColor = nickColors[kotlin.math.abs(message.sender.hashCode()) % nickColors.size]
     val isSystemMessage = message.sender.isEmpty() || message.sender == "SYSTEM"
     val copyMessage = {
@@ -1135,10 +1173,10 @@ fun MessageItem(
             // Buscar en las conversaciones actualizadas
             val updatedConversations = chatViewModel.conversations.value
             val targetIndex =
-                    updatedConversations.indexOfFirst {
-                        it.type == ConversationType.PRIVATE_MESSAGE &&
-                                it.name.equals(username, ignoreCase = true)
-                    }
+                updatedConversations.indexOfFirst {
+                    it.type == ConversationType.PRIVATE_MESSAGE &&
+                            it.name.equals(username, ignoreCase = true)
+                }
             if (targetIndex != -1) {
                 // Navegar al índice y también actualizar el viewModel
                 pagerState.animateScrollToPage(targetIndex)
@@ -1160,97 +1198,100 @@ fun MessageItem(
     }
     if (isSystemMessage) {
         Row(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp),
-                horizontalArrangement = Arrangement.Center
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp),
+            horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                    text = message.content,
-                    style = ChatTypography.systemMessage(fontSize),
-                    modifier =
-                            Modifier.background(
-                                            color = eventBackgroundColor,
-                                            shape = RoundedCornerShape(8.dp)
-                                    )
-                                    .padding(8.dp)
-                                    .combinedClickable(onClick = {}, onLongClick = copyMessage),
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
-                    textAlign = TextAlign.Center
+                text = message.content,
+                style = ChatTypography.systemMessage(fontSize),
+                modifier =
+                    Modifier.background(
+                        color = eventBackgroundColor,
+                        shape = RoundedCornerShape(8.dp)
+                    )
+                        .padding(8.dp)
+                        .combinedClickable(onClick = {}, onLongClick = copyMessage),
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
+                textAlign = TextAlign.Center
             )
         }
     } else {
         Row(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp),
-                horizontalArrangement = if (isOwnMessage) Arrangement.End else Arrangement.Start
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp),
+            horizontalArrangement = if (isOwnMessage) Arrangement.End else Arrangement.Start
         ) {
             Box(
-                    modifier =
-                            Modifier.widthIn(max = 280.dp)
-                                    .combinedClickable(onClick = {}, onLongClick = copyMessage)
+                modifier =
+                    Modifier.widthIn(max = 280.dp)
+                        .combinedClickable(onClick = {}, onLongClick = copyMessage)
             ) {
                 Column(
-                        modifier =
-                                Modifier.background(
-                                                color = eventBackgroundColor,
-                                                shape = RoundedCornerShape(12.dp)
-                                        )
-                                        .padding(12.dp)
+                    modifier =
+                        Modifier.background(
+                            color = eventBackgroundColor,
+                            shape = RoundedCornerShape(12.dp)
+                        )
+                            .padding(12.dp)
                 ) {
                     Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                            modifier = Modifier.fillMaxWidth()
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.fillMaxWidth()
                     ) {
                         Box(
-                                modifier =
-                                        Modifier.weight(1f).pointerInput(Unit) {
-                                            detectTapGestures(
-                                                    onTap = { offset ->
-                                                        handleNickClick(Offset(offset.x, offset.y))
-                                                    },
-                                                    onLongPress = { onNickClick(message.sender) }
-                                            )
-                                        }
+                            modifier =
+                                Modifier.weight(1f).pointerInput(Unit) {
+                                    detectTapGestures(
+                                        onTap = { offset ->
+                                            handleNickClick(Offset(offset.x, offset.y))
+                                        },
+                                        onLongPress = { onNickClick(message.sender) }
+                                    )
+                                }
                         ) {
                             Text(
-                                    text = message.sender,
-                                    style = ChatTypography.nicknameText(fontSize),
-                                    color = nickColor,
-                                    fontWeight = FontWeight.Bold
+                                text = message.sender,
+                                style = ChatTypography.nicknameText(fontSize),
+                                color = nickColor,
+                                fontWeight = FontWeight.Bold
                             )
                         }
                         // Icono de mención si el mensaje menciona al usuario
                         if (message.isMentioned) {
                             Icon(
-                                    imageVector = Icons.Default.Notifications,
-                                    contentDescription = "Mencionado",
-                                    tint = Color.Red,
-                                    modifier = Modifier.size(18.dp)
+                                imageVector = Icons.Default.Notifications,
+                                contentDescription = "Mencionado",
+                                tint = Color.Red,
+                                modifier = Modifier.size(18.dp)
                             )
                         }
                         IconButton(onClick = copyMessage, modifier = Modifier.size(24.dp)) {
                             Icon(
-                                    painter = painterResource(R.drawable.content_copy),
-                                    contentDescription = "Copiar mensaje",
-                                    tint =
-                                            MaterialTheme.colorScheme.onBackground.copy(
-                                                    alpha = 0.5f
-                                            ),
-                                    modifier = Modifier.size(16.dp)
+                                painter = painterResource(R.drawable.content_copy),
+                                contentDescription = "Copiar mensaje",
+                                tint =
+                                    MaterialTheme.colorScheme.onBackground.copy(
+                                        alpha = 0.5f
+                                    ),
+                                modifier = Modifier.size(16.dp)
                             )
                         }
                         Text(
-                                text = formatTimestamp(message.timestamp),
-                                style = ChatTypography.timestampText(fontSize),
-                                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
+                            text = formatTimestamp(message.timestamp),
+                            style = ChatTypography.timestampText(fontSize),
+                            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
                         )
                     }
-                    FormattedClickableText(
-                            message = message.content,
+
+                    // Mostrar el texto del mensaje (sin las URLs que mostraremos como cards)
+                    if (messageTextWithoutCardUrls.isNotBlank()) {
+                        FormattedClickableText(
+                            message = messageTextWithoutCardUrls,
                             style =
-                                    ChatTypography.messageText(
-                                            fontSize = fontSize,
-                                            isOwn = isOwnMessage
-                                    ),
+                                ChatTypography.messageText(
+                                    fontSize = fontSize,
+                                    isOwn = isOwnMessage
+                                ),
                             modifier = Modifier.padding(vertical = 4.dp).fillMaxWidth(),
                             isMentioned = message.isMentioned,
                             onClickUrl = { url ->
@@ -1262,33 +1303,49 @@ fun MessageItem(
                                     context.showToast(R.string.url_open_error)
                                 }
                             }
-                    )
-                    
-                    // Detectar y mostrar YouTube player si hay un video
-                    val youtubeVideoId = remember(message.content) {
-                        message.youtubeVideoId ?: message.content.extractYouTubeVideoId()
+                        )
                     }
-                    
-                    youtubeVideoId?.let { videoId ->
+
+                    // =================== MOSTRAR CONTENIDO MULTIMEDIA SIN DUPLICADOS ===================
+
+                    // 1. Mostrar YouTube player si hay video de YouTube
+                    firstYoutubeVideoId?.let { videoId ->
                         Spacer(modifier = Modifier.height(8.dp))
                         YouTubePlayerCard(
                             videoId = videoId,
                             modifier = Modifier.fillMaxWidth()
                         )
                     }
-                    
-                    if (urls.isNotEmpty()) {
+
+                    // 2. Mostrar imágenes si hay URLs de imágenes
+                    if (imageUrls.isNotEmpty()) {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Column {
+                            imageUrls.forEach { imageUrl ->
+                                ImagePreviewCard(
+                                    imageUrl = imageUrl,
+                                    context = context,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 4.dp)
+                                )
+                            }
+                        }
+                    }
+
+                    // 3. Mostrar links regulares (que no son imágenes ni YouTube)
+                    if (regularUrls.isNotEmpty()) {
                         Spacer(modifier = Modifier.height(8.dp))
                         Divider(
-                                modifier = Modifier.padding(vertical = 4.dp),
-                                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f)
+                            modifier = Modifier.padding(vertical = 4.dp),
+                            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f)
                         )
                         Column {
-                            urls.forEach { url ->
+                            regularUrls.forEach { url ->
                                 UrlPreviewCard(
-                                        url = url,
-                                        context = context,
-                                        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)
+                                    url = url,
+                                    context = context,
+                                    modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)
                                 )
                             }
                         }
@@ -1300,290 +1357,290 @@ fun MessageItem(
 
     if (showNickMenu && nickMenuAnchor != null) {
         DropdownMenu(
-                expanded = showNickMenu,
-                onDismissRequest = { showNickMenu = false },
-                offset = DpOffset(x = nickMenuAnchor!!.x.dp, y = nickMenuAnchor!!.y.dp),
-                modifier = Modifier.widthIn(min = 200.dp)
+            expanded = showNickMenu,
+            onDismissRequest = { showNickMenu = false },
+            offset = DpOffset(x = nickMenuAnchor!!.x.dp, y = nickMenuAnchor!!.y.dp),
+            modifier = Modifier.widthIn(min = 200.dp)
         ) {
             val isBlocked by
-                    chatViewModel.isUserBlocked(message.sender).collectAsState(initial = false)
+            chatViewModel.isUserBlocked(message.sender).collectAsState(initial = false)
             val isIgnored by chatViewModel.ignoredUsers.collectAsState(initial = emptySet())
             val isIgnoredGlobally = isIgnored.contains(message.sender)
             val currentChannel = chatViewModel.getCurrentConversation()?.name ?: ""
             val ignoredUsersInChannel by
-                    chatViewModel
-                            .ignoredUsersInChannel(currentChannel)
-                            .collectAsState(initial = emptySet())
+            chatViewModel
+                .ignoredUsersInChannel(currentChannel)
+                .collectAsState(initial = emptySet())
             val isIgnoredInChannel = ignoredUsersInChannel.contains(message.sender)
 
             DropdownMenuItem(
-                    leadingIcon = { Icon(Icons.Default.Edit, "Mention") },
-                    onClick = {
-                        showNickMenu = false
-                        onNickClick(message.sender)
-                    },
-                    text = { Text(stringResource(R.string.menu_mention)) }
+                leadingIcon = { Icon(Icons.Default.Edit, "Mention") },
+                onClick = {
+                    showNickMenu = false
+                    onNickClick(message.sender)
+                },
+                text = { Text(stringResource(R.string.menu_mention)) }
             )
 
             DropdownMenuItem(
-                    leadingIcon = { Icon(Icons.Default.Person, "Open Private Chat") },
-                    onClick = {
-                        showNickMenu = false
+                leadingIcon = { Icon(Icons.Default.Person, "Open Private Chat") },
+                onClick = {
+                    showNickMenu = false
 
-                        handleOpenPrivateChat(message.sender)
-                    },
-                    text = { Text(stringResource(R.string.menu_open_private)) },
-                    enabled = !isBlocked
+                    handleOpenPrivateChat(message.sender)
+                },
+                text = { Text(stringResource(R.string.menu_open_private)) },
+                enabled = !isBlocked
             )
 
             DropdownMenuItem(
-                    leadingIcon = { Icon(Icons.Default.AccountCircle, "View Profile") },
-                    onClick = {
-                        showNickMenu = false
-                        handlePremiumAction {
-                            navController.navigate(
-                                    Routes.UserDetails.createUsernameRoute(message.sender)
+                leadingIcon = { Icon(Icons.Default.AccountCircle, "View Profile") },
+                onClick = {
+                    showNickMenu = false
+                    handlePremiumAction {
+                        navController.navigate(
+                            Routes.UserDetails.createUsernameRoute(message.sender)
+                        )
+                    }
+                },
+                text = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(stringResource(R.string.see_profile))
+                        if (!isPremiumUser) {
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Icon(
+                                Icons.Default.Star,
+                                contentDescription = "Premium",
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(16.dp)
                             )
                         }
-                    },
-                    text = {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(stringResource(R.string.see_profile))
-                            if (!isPremiumUser) {
-                                Spacer(modifier = Modifier.width(4.dp))
-                                Icon(
-                                        Icons.Default.Star,
-                                        contentDescription = "Premium",
-                                        tint = MaterialTheme.colorScheme.primary,
-                                        modifier = Modifier.size(16.dp)
-                                )
-                            }
-                        }
-                    },
-                    enabled = !isBlocked
+                    }
+                },
+                enabled = !isBlocked
             )
 
             Divider()
 
             DropdownMenuItem(
-                    leadingIcon = {
-                        if (isBlocked) Icon(Icons.Default.Lock, "Unblock User")
-                        else Icon(Icons.Default.Delete, "Block User")
-                    },
-                    onClick = {
-                        showNickMenu = false
-                        handlePremiumAction {
-                            if (isBlocked) chatViewModel.unblockUser(message.sender)
-                            else chatViewModel.blockUser(message.sender)
-                        }
-                    },
-                    text = {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(
-                                    if (isBlocked) stringResource(R.string.menu_unblock_user)
-                                    else stringResource(R.string.menu_block_user)
+                leadingIcon = {
+                    if (isBlocked) Icon(Icons.Default.Lock, "Unblock User")
+                    else Icon(Icons.Default.Delete, "Block User")
+                },
+                onClick = {
+                    showNickMenu = false
+                    handlePremiumAction {
+                        if (isBlocked) chatViewModel.unblockUser(message.sender)
+                        else chatViewModel.blockUser(message.sender)
+                    }
+                },
+                text = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            if (isBlocked) stringResource(R.string.menu_unblock_user)
+                            else stringResource(R.string.menu_block_user)
+                        )
+                        if (!isPremiumUser) {
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Icon(
+                                Icons.Default.Star,
+                                contentDescription = "Premium",
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(16.dp)
                             )
-                            if (!isPremiumUser) {
-                                Spacer(modifier = Modifier.width(4.dp))
-                                Icon(
-                                        Icons.Default.Star,
-                                        contentDescription = "Premium",
-                                        tint = MaterialTheme.colorScheme.primary,
-                                        modifier = Modifier.size(16.dp)
-                                )
-                            }
                         }
                     }
+                }
             )
 
             DropdownMenuItem(
-                    leadingIcon = {
-                        if (isIgnoredGlobally) Icon(Icons.Default.Close, "Unignore User")
-                        else Icon(Icons.Default.Lock, "Ignore User")
-                    },
-                    onClick = {
-                        showNickMenu = false
-                        handlePremiumAction {
-                            if (isIgnoredGlobally) chatViewModel.unignoreUser(message.sender)
-                            else chatViewModel.ignoreUser(message.sender)
-                        }
-                    },
-                    text = {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(
-                                    if (isIgnoredGlobally)
-                                            stringResource(R.string.menu_unignore_user)
-                                    else stringResource(R.string.menu_ignore_user)
+                leadingIcon = {
+                    if (isIgnoredGlobally) Icon(Icons.Default.Close, "Unignore User")
+                    else Icon(Icons.Default.Lock, "Ignore User")
+                },
+                onClick = {
+                    showNickMenu = false
+                    handlePremiumAction {
+                        if (isIgnoredGlobally) chatViewModel.unignoreUser(message.sender)
+                        else chatViewModel.ignoreUser(message.sender)
+                    }
+                },
+                text = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            if (isIgnoredGlobally)
+                                stringResource(R.string.menu_unignore_user)
+                            else stringResource(R.string.menu_ignore_user)
+                        )
+                        if (!isPremiumUser) {
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Icon(
+                                Icons.Default.Star,
+                                contentDescription = "Premium",
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(16.dp)
                             )
-                            if (!isPremiumUser) {
-                                Spacer(modifier = Modifier.width(4.dp))
-                                Icon(
-                                        Icons.Default.Star,
-                                        contentDescription = "Premium",
-                                        tint = MaterialTheme.colorScheme.primary,
-                                        modifier = Modifier.size(16.dp)
-                                )
-                            }
                         }
                     }
+                }
             )
 
             DropdownMenuItem(
-                    leadingIcon = {
+                leadingIcon = {
+                    if (isIgnoredInChannel)
+                        Icon(Icons.Default.Delete, "Unignore User in Channel")
+                    else Icon(Icons.Default.List, "Ignore User in Channel")
+                },
+                onClick = {
+                    showNickMenu = false
+                    handlePremiumAction {
                         if (isIgnoredInChannel)
-                                Icon(Icons.Default.Delete, "Unignore User in Channel")
-                        else Icon(Icons.Default.List, "Ignore User in Channel")
-                    },
-                    onClick = {
-                        showNickMenu = false
-                        handlePremiumAction {
-                            if (isIgnoredInChannel)
-                                    chatViewModel.unignoreUserInChannel(
-                                            message.sender,
-                                            currentChannel
-                                    )
-                            else chatViewModel.ignoreUserInChannel(message.sender, currentChannel)
-                        }
-                    },
-                    text = {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(
-                                    if (isIgnoredInChannel)
-                                            stringResource(R.string.menu_unignore_channel)
-                                    else stringResource(R.string.menu_ignore_channel)
+                            chatViewModel.unignoreUserInChannel(
+                                message.sender,
+                                currentChannel
                             )
-                            if (!isPremiumUser) {
-                                Spacer(modifier = Modifier.width(4.dp))
-                                Icon(
-                                        Icons.Default.Star,
-                                        contentDescription = "Premium",
-                                        tint = MaterialTheme.colorScheme.primary,
-                                        modifier = Modifier.size(16.dp)
-                                )
-                            }
+                        else chatViewModel.ignoreUserInChannel(message.sender, currentChannel)
+                    }
+                },
+                text = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            if (isIgnoredInChannel)
+                                stringResource(R.string.menu_unignore_channel)
+                            else stringResource(R.string.menu_ignore_channel)
+                        )
+                        if (!isPremiumUser) {
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Icon(
+                                Icons.Default.Star,
+                                contentDescription = "Premium",
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(16.dp)
+                            )
                         }
                     }
+                }
             )
 
             Divider()
             DropdownMenuItem(
-                    leadingIcon = { Icon(Icons.Default.Warning, "Report User") },
-                    onClick = {
-                        showNickMenu = false
-                        showReportDialog = true
-                    },
-                    text = { Text(stringResource(R.string.menu_report_user)) }
+                leadingIcon = { Icon(Icons.Default.Warning, "Report User") },
+                onClick = {
+                    showNickMenu = false
+                    showReportDialog = true
+                },
+                text = { Text(stringResource(R.string.menu_report_user)) }
             )
             DropdownMenuItem(
-                    leadingIcon = { painterResource(id = R.drawable.content_copy) },
-                    onClick = {
-                        showNickMenu = false
-                        copyMessage()
-                    },
-                    text = { Text(stringResource(R.string.menu_copy_message)) }
+                leadingIcon = { painterResource(id = R.drawable.content_copy) },
+                onClick = {
+                    showNickMenu = false
+                    copyMessage()
+                },
+                text = { Text(stringResource(R.string.menu_copy_message)) }
             )
         }
     }
 
     if (showAuthDialog) {
         AlertDialog(
-                onDismissRequest = { showAuthDialog = false },
-                title = { Text(stringResource(R.string.premium_dialog_title)) },
-                text = { Text(stringResource(R.string.premium_feature_description)) },
-                confirmButton = {
+            onDismissRequest = { showAuthDialog = false },
+            title = { Text(stringResource(R.string.premium_dialog_title)) },
+            text = { Text(stringResource(R.string.premium_feature_description)) },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showAuthDialog = false
+                        navController.navigate(Routes.Login.route)
+                    }
+                ) { Text(stringResource(R.string.action_login)) }
+            },
+            dismissButton = {
+                Row {
                     TextButton(
+                        onClick = {
+                            showAuthDialog = false
+                            navController.navigate(Routes.Registration.route)
+                        }
+                    ) { Text(stringResource(R.string.action_register)) }
+                    if (isRewardedAdReady && activity != null) {
+                        TextButton(
                             onClick = {
                                 showAuthDialog = false
-                                navController.navigate(Routes.Login.route)
+                                adViewModel.adManager.showRewardedAd(
+                                    activity,
+                                    onRewarded = {
+                                        authViewModel.activateTemporaryPremium()
+                                        coroutineScope.launch {
+                                            snackbarHostState.showSnackbar(
+                                                message =
+                                                    context.getString(
+                                                        R.string
+                                                            .premium_access_granted
+                                                    ),
+                                                duration = SnackbarDuration.Long
+                                            )
+                                        }
+                                        premiumFeatureRequested()
+                                    },
+                                    onAdClosed = {}
+                                )
                             }
-                    ) { Text(stringResource(R.string.action_login)) }
-                },
-                dismissButton = {
-                    Row {
-                        TextButton(
-                                onClick = {
-                                    showAuthDialog = false
-                                    navController.navigate(Routes.Registration.route)
-                                }
-                        ) { Text(stringResource(R.string.action_register)) }
-                        if (isRewardedAdReady && activity != null) {
-                            TextButton(
-                                    onClick = {
-                                        showAuthDialog = false
-                                        adViewModel.adManager.showRewardedAd(
-                                                activity,
-                                                onRewarded = {
-                                                    authViewModel.activateTemporaryPremium()
-                                                    coroutineScope.launch {
-                                                        snackbarHostState.showSnackbar(
-                                                                message =
-                                                                        context.getString(
-                                                                                R.string
-                                                                                        .premium_access_granted
-                                                                        ),
-                                                                duration = SnackbarDuration.Long
-                                                        )
-                                                    }
-                                                    premiumFeatureRequested()
-                                                },
-                                                onAdClosed = {}
-                                        )
-                                    }
-                            ) { Text(stringResource(R.string.watch_video)) }
-                        }
-                        TextButton(onClick = { showAuthDialog = false }) {
-                            Text(stringResource(R.string.cancel_button))
-                        }
+                        ) { Text(stringResource(R.string.watch_video)) }
+                    }
+                    TextButton(onClick = { showAuthDialog = false }) {
+                        Text(stringResource(R.string.cancel_button))
                     }
                 }
+            }
         )
     }
 
     if (showReportDialog) {
         AlertDialog(
-                onDismissRequest = { showReportDialog = false },
-                title = { Text(stringResource(R.string.report_dialog_title)) },
-                text = {
-                    Column {
-                        Text(text = stringResource(R.string.report_dialog_message, message.sender))
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                                stringResource(R.string.report_email_warning)
-                        ) // Nuevo string que debes añadir
-                        Spacer(modifier = Modifier.height(8.dp))
-                        OutlinedTextField(
-                                value = reportReason,
-                                onValueChange = { reportReason = it },
-                                modifier = Modifier.fillMaxWidth(),
-                                placeholder = { Text(stringResource(R.string.report_hint)) },
-                                singleLine = false,
-                                maxLines = 3
-                        )
-                    }
-                },
-                confirmButton = {
-                    TextButton(
-                            onClick = {
-                                if (reportReason.isNotBlank()) {
-                                    chatViewModel.reportUser(
-                                            userId = message.sender,
-                                            reason = reportReason
-                                    )
-                                    showReportDialog = false
-                                    reportReason = ""
-                                }
-                            },
-                            enabled = reportReason.isNotBlank()
-                    ) { Text(stringResource(R.string.report_button)) }
-                },
-                dismissButton = {
-                    TextButton(
-                            onClick = {
-                                showReportDialog = false
-                                reportReason = ""
-                            }
-                    ) { Text(stringResource(R.string.cancel_button)) }
+            onDismissRequest = { showReportDialog = false },
+            title = { Text(stringResource(R.string.report_dialog_title)) },
+            text = {
+                Column {
+                    Text(text = stringResource(R.string.report_dialog_message, message.sender))
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        stringResource(R.string.report_email_warning)
+                    ) // Nuevo string que debes añadir
+                    Spacer(modifier = Modifier.height(8.dp))
+                    OutlinedTextField(
+                        value = reportReason,
+                        onValueChange = { reportReason = it },
+                        modifier = Modifier.fillMaxWidth(),
+                        placeholder = { Text(stringResource(R.string.report_hint)) },
+                        singleLine = false,
+                        maxLines = 3
+                    )
                 }
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        if (reportReason.isNotBlank()) {
+                            chatViewModel.reportUser(
+                                userId = message.sender,
+                                reason = reportReason
+                            )
+                            showReportDialog = false
+                            reportReason = ""
+                        }
+                    },
+                    enabled = reportReason.isNotBlank()
+                ) { Text(stringResource(R.string.report_button)) }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showReportDialog = false
+                        reportReason = ""
+                    }
+                ) { Text(stringResource(R.string.cancel_button)) }
+            }
         )
     }
 
@@ -1591,8 +1648,8 @@ fun MessageItem(
     LaunchedEffect(reportActionComplete) {
         if (reportActionComplete) {
             snackbarHostState.showSnackbar(
-                    message = context.getString(R.string.report_success),
-                    duration = SnackbarDuration.Long
+                message = context.getString(R.string.report_success),
+                duration = SnackbarDuration.Long
             )
         }
     }
