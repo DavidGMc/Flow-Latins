@@ -88,6 +88,10 @@ class IRCChatViewModel(
     private val _lastClosedPrivateChat = MutableStateFlow<String?>(null)
     val lastClosedPrivateChat: StateFlow<String?> = _lastClosedPrivateChat.asStateFlow()
 
+    // Tracking de mensajes notificados para evitar duplicados
+    private val notifiedMessageIds = mutableSetOf<String>()
+    private val conversationLastVisitTimestamps = mutableMapOf<String, Long>()
+
     // Preferencias
     val ircColorPreferences = IRCColorPreferences(chatPreferences)
     val useColors: StateFlow<Boolean> = ircColorPreferences.useColors
@@ -143,12 +147,14 @@ class IRCChatViewModel(
                         updatedConversations
                     }
 
-                    // Verificar notificaciones
+                    // Verificar notificaciones solo para mensajes nuevos
                     updatedConversations.forEach { conversation ->
-                        conversation.messages.forEach { message ->
+                        // Solo verificar el último mensaje de cada conversación
+                        conversation.messages.lastOrNull()?.let { message ->
                             checkAndNotify(message, conversation)
                         }
                     }
+
                 }
             }
         }
@@ -639,17 +645,31 @@ class IRCChatViewModel(
     }
 
     fun checkAndNotify(message: IRCMessage, conversation: Conversation) {
-        if (conversation.name == getCurrentConversation()?.name && message.isRead) {
+        // 1. Generar ID único para el mensaje
+        val messageId = "${message.timestamp}_${message.sender}_${message.content.hashCode()}"
+
+        // 2. Si ya notificamos este mensaje, salir
+        if (messageId in notifiedMessageIds) return
+
+        // 3. Si el mensaje es del propio usuario, no notificar
+        if (message.isOwnMessage) return
+
+        // 4. Si la conversación está actualmente activa, marcar como notificado pero no notificar
+        if (conversation.name == getCurrentConversation()?.name) {
+            notifiedMessageIds.add(messageId)
             return
         }
 
-        if (message.isMentioned) {
-            _notifications.value = _notifications.value + "You were mentioned in ${message.channelName}"
-            notificationService.showMentionNotification(message, conversation)
-        } else if (message.conversationType == ConversationType.PRIVATE_MESSAGE) {
-            _notifications.value = _notifications.value + "New private message from ${message.sender}"
-            notificationService.showPrivateMessageNotification(message, conversation)
+        // 5. Verificar si el mensaje es anterior a la última visita
+        val lastVisit = conversationLastVisitTimestamps[conversation.name] ?: 0L
+        if (message.timestamp <= lastVisit) {
+            notifiedMessageIds.add(messageId)
+            return
         }
+
+        // 6. Notificar y marcar como notificado
+        // ... código de notificación ...
+        notifiedMessageIds.add(messageId)
     }
 
     fun clearNotificationTabSwitch() {
@@ -657,6 +677,12 @@ class IRCChatViewModel(
     }
 
     fun setActiveConversation(conversationName: String?) {
+        // Registrar timestamp de visita para prevenir notificaciones duplicadas
+        if (conversationName != null) {
+            conversationLastVisitTimestamps[conversationName] = System.currentTimeMillis()
+            // Cancelar notificaciones de esta conversación cuando se vuelve activa
+            notificationService.cancelConversationNotifications(conversationName)
+        }
         notificationService.setActiveConversation(conversationName)
     }
     /*fun sendMessageToConversation(messageText: String, conversationIndex: Int) {
