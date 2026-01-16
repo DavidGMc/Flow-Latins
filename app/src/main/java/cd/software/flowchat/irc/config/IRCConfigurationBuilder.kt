@@ -1,5 +1,6 @@
 package cd.software.flowchat.irc.config
 
+import android.util.Log
 import cd.software.flowchat.irc.events.IRCEventHandler
 import cd.software.flowchat.model.IRCConnectionInfo
 import java.nio.charset.Charset
@@ -53,9 +54,21 @@ class IRCConfigurationBuilder(private val eventHandler: IRCEventHandler) {
             builder: Configuration.Builder,
             connectionInfo: IRCConnectionInfo
     ) {
-        if (connectionInfo.password.isNotBlank()) {
-            builder.setNickservPassword(connectionInfo.password)
-        }
+        if (connectionInfo.password.isBlank()) return
+
+        // MÉTODO 1: Server Password (como IRC Revolution)
+        // Este es el método más común y compatible
+        builder.setServerPassword(connectionInfo.password)
+
+
+        // MÉTODO 2: NickServ Password (fallback automático)
+        // PircBotX lo enviará automáticamente si server password no funciona
+        builder.setNickservPassword(connectionInfo.password)
+
+        // MÉTODO 3: Habilitar CAP para SASL si está disponible
+        builder.setCapEnabled(true)
+
+        Log.d("IRCConfigurationBuilder", "Autenticación multi-método configurada")
     }
 
     /** Configura los canales para auto-join. */
