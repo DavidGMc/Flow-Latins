@@ -645,31 +645,46 @@ class IRCChatViewModel(
     }
 
     fun checkAndNotify(message: IRCMessage, conversation: Conversation) {
-        // 1. Generar ID único para el mensaje
+        // Generar ID único para el mensaje
         val messageId = "${message.timestamp}_${message.sender}_${message.content.hashCode()}"
 
-        // 2. Si ya notificamos este mensaje, salir
-        if (messageId in notifiedMessageIds) return
+        // Si ya notificamos este mensaje, salir
+        if (messageId in notifiedMessageIds) {
+            return
+        }
 
-        // 3. Si el mensaje es del propio usuario, no notificar
-        if (message.isOwnMessage) return
+        // Si el mensaje es del propio usuario, no notificar
+        if (message.isOwnMessage) {
+            return
+        }
 
-        // 4. Si la conversación está actualmente activa, marcar como notificado pero no notificar
+        // Si la conversación está actualmente activa, no notificar
         if (conversation.name == getCurrentConversation()?.name) {
+            // Marcar como notificado para no volver a notificar si cambiamos de tab
             notifiedMessageIds.add(messageId)
             return
         }
 
-        // 5. Verificar si el mensaje es anterior a la última visita
+        // Verificar si el mensaje es anterior a la última visita a esta conversación
         val lastVisit = conversationLastVisitTimestamps[conversation.name] ?: 0L
         if (message.timestamp <= lastVisit) {
+            // Mensaje ya fue visto, no notificar
             notifiedMessageIds.add(messageId)
             return
         }
 
-        // 6. Notificar y marcar como notificado
-        // ... código de notificación ...
-        notifiedMessageIds.add(messageId)
+        // Notificar según el tipo de mensaje
+        if (message.isMentioned) {
+            _notifications.value =
+                _notifications.value + "You were mentioned in ${message.channelName}"
+            notificationService.showMentionNotification(message, conversation)
+            notifiedMessageIds.add(messageId)
+        } else if (message.conversationType == ConversationType.PRIVATE_MESSAGE) {
+            _notifications.value =
+                _notifications.value + "New private message from ${message.sender}"
+            notificationService.showPrivateMessageNotification(message, conversation)
+            notifiedMessageIds.add(messageId)
+        }
     }
 
     fun clearNotificationTabSwitch() {
